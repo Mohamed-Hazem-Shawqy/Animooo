@@ -1,6 +1,5 @@
 import 'package:animooo/core/helper_func/ongenerate_route.dart';
 import 'package:animooo/core/utils/app_routes.dart';
-import 'package:animooo/feature/splash/view/splash_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -27,9 +26,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      onGenerateRoute: onGenerateRoute,
       debugShowCheckedModeBanner: false,
-
+      onGenerateRoute: onGenerateRoute,
       initialRoute: AppRoutes.splashRoute,
     );
   }

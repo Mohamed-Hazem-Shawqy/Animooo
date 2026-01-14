@@ -1,4 +1,4 @@
-class AppRoutes {
-    static const  String splashRoute = '/';
+abstract class AppRoutes {
+    static const String splashRoute = '/';
 
 }
