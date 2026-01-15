@@ -1,1 +1,8 @@
-{}
+{
+    "login": "Log In",
+    "thisFiledRequired": "This field is required",
+    "enterYourEmailAddress": "Enter your email address",
+    "Password":"Password",
+    "Email":"Email",
+    "ForgetPassword":"Forget Password....?"
+}
