@@ -77,6 +77,11 @@ abstract class AppFonts {
     fontWeight: FontWeight.w500,
     fontSize: 16.sp,
   );
+  static TextStyle poppinsMedium14 = TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w500,
+    fontSize: 14.sp,
+  );
   static TextStyle poppinsMedium10 = TextStyle(
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w500,
@@ -87,6 +92,11 @@ abstract class AppFonts {
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w600,
     fontSize: 18.sp,
+  );
+  static TextStyle poppinsSemiBold14 = TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600,
+    fontSize: 14.sp,
   );
 
   /// ================= SF Pro Display =================

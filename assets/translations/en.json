@@ -4,5 +4,19 @@
     "enterYourEmailAddress": "Enter your email address",
     "Password":"Password",
     "Email":"Email",
-    "ForgetPassword":"Forget Password....?"
+    "ForgetPassword":"Forget Password....?",
+    "Donthaveanaccount":"Don't have an account? ",
+    "haveanaccount":"Have an account already? ",
+    "signupnow":"Sign up now",
+    "signup": "Sign Up",
+    "firstname": "First Name",
+    "lastname": "Last Name",
+    "phone":"Phone",
+    "enteryourfirstname":"Enter your First Name",
+    "enteryourlastname":"Enter your Last Name",
+    "enteryuourphone":"Enter your Phone Number",
+    "enteryouremailaddress":"Enter your Email Address",
+    "confirmpassword":"Confirm Password",
+    "uploadimageforyourprofile":"Upload image for your profile",
+    "selectfile":"Select File"
 }

@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  //10.0.2.2 - Android Emulator localhost
   runApp(
     EasyLocalization(
       supportedLocales: [Locale('en'), Locale('ar')],
