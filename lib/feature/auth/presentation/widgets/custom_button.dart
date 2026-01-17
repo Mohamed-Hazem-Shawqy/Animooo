@@ -1,5 +1,6 @@
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
+import 'package:animooo/core/utils/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -12,7 +13,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 44.h,
+      height: AppSpacing.h44,
       width: double.infinity,
       child: TextButton(
         style: TextButton.styleFrom(

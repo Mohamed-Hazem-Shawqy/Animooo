@@ -1,4 +1,4 @@
-import 'package:animooo/core/utils/app_consts.dart';
+import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_form_text_field.dart';
 import 'package:flutter/material.dart';
 

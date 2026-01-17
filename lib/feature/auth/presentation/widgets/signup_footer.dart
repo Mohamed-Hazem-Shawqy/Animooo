@@ -1,5 +1,5 @@
 import 'package:animooo/core/app_navigation.dart';
-import 'package:animooo/core/utils/app_consts.dart';
+import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/route_manager.dart';
 import 'package:animooo/feature/auth/presentation/widgets/have_dont_have_account.dart';
 import 'package:easy_localization/easy_localization.dart';

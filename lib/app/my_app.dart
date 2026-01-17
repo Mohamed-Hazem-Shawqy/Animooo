@@ -1,4 +1,4 @@
-import 'package:animooo/core/utils/app_consts.dart';
+import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/route_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

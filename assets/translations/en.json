@@ -19,11 +19,10 @@
     "confirmpassword": "Confirm Password",
     "uploadimageforyourprofile": "Upload image for your profile",
     "selectfile": "Select File",
-    "password_min_length": "Minimum characters 12.",
+    "password_min_length": "Minimum characters 6.",
     "password_uppercase": "One uppercase character.",
     "password_lowercase": "One lowercase character.",
     "password_special": "One special character.",
     "password_number": "One number.",
     "pleaseuploadyourprofileimage": "Please upload your profile image."
-    
 }

@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:animooo/core/utils/app_colors.dart';
-import 'package:animooo/core/utils/app_consts.dart';
+import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_images.dart';
+import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/feature/auth/presentation/widgets/filed_name.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -19,7 +20,7 @@ class UploadProfileImage extends FormField<File?> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FieldName(filedName: AppStrings.kUploadImageForProfile.tr()),
-              SizedBox(height: 8.h),
+              SizedBox(height: AppSpacing.h8),
               DottedBorder(
                 options: RectDottedBorderOptions(
                   dashPattern: [4, 4],
@@ -30,7 +31,7 @@ class UploadProfileImage extends FormField<File?> {
                 ),
                 child: Container(
                   width: double.infinity,
-                  height: 200.h,
+                  height: AppSpacing.h200,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
@@ -38,7 +39,7 @@ class UploadProfileImage extends FormField<File?> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SvgPicture.asset(Assets.imagesSelectimageSvg),
-                      SizedBox(height: 16.h),
+                      SizedBox(height: AppSpacing.h16),
                       Text(
                         AppStrings.kSelectFile.tr(),
                         style: AppFonts.urbanistMedium16.copyWith(
@@ -50,7 +51,7 @@ class UploadProfileImage extends FormField<File?> {
                 ),
               ),
               if (state.hasError) ...[
-                SizedBox(height: 4.h),
+                SizedBox(height: AppSpacing.h4),
                 Text(
                   state.errorText!,
                   style: AppFonts.urbanistRegular12.copyWith(
