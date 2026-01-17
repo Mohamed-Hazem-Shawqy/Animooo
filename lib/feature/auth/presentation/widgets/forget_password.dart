@@ -1,4 +1,5 @@
 import 'package:animooo/core/utils/app_colors.dart';
+import 'package:animooo/core/utils/app_consts.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class ForgetPassword extends StatelessWidget {
         TextButton(
           onPressed: () {},
           child: Text(
-            'ForgetPassword'.tr(),
+            AppStrings.kForgetPassword.tr(),
             style: AppFonts.poppinsMedium10.copyWith(
               color: AppColors.primary04332D,
               decoration: TextDecoration.underline,

@@ -4,22 +4,34 @@ import 'package:flutter/material.dart';
 
 abstract class RouteManager {
   static Route<dynamic> onGenerateRoute(RouteSettings setting) {
-    switch (setting.name) {
-      case RouteName.loginRoute:
-        return MaterialPageRoute(builder: (context) => const LoginView());
-      case RouteName.signUpRoute:
-        return MaterialPageRoute(builder: (context) => const SignupView());
-      default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(child: Text('No route defined for ${setting.name}')),
-          ),
-        );
+    Widget widget;
+    if (setting.name == RouteName.loginRoute.path) {
+      widget = LoginView();
+    } else if (setting.name == RouteName.signUpRoute.path) {
+      widget = SignupView();
+    } else {
+      widget = UnKnownRoute(
+        setting: setting,
+      );
     }
+
+    return MaterialPageRoute(builder: (_) => widget,settings:setting );
   }
 }
+class UnKnownRoute extends StatelessWidget {
+  const UnKnownRoute({super.key,required this.setting});
+  final RouteSettings setting;
 
-abstract class RouteName {
-  static const String loginRoute = '/';
-  static const String signUpRoute = '/SignUp';
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(child: Text('No route defined for ${setting.name}')),
+      );
+  }
+}
+enum RouteName {
+  loginRoute('/'),
+  signUpRoute('/SignUp');
+  final String path;
+  const RouteName(this.path);
 }

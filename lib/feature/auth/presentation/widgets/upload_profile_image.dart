@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:animooo/core/utils/app_colors.dart';
+import 'package:animooo/core/utils/app_consts.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_images.dart';
 import 'package:animooo/feature/auth/presentation/widgets/filed_name.dart';
@@ -8,42 +11,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class UploadProfileImage extends StatelessWidget {
-  const UploadProfileImage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const FieldName(filedName: 'uploadimageforyourprofile'),
-        SizedBox(height: 8.h),
-        DottedBorder(
-          options: RectDottedBorderOptions(
-            dashPattern: [4, 4],
-            color: AppColors.primary04332D,
-            strokeWidth: 1,
-          ),
-          child: Container(
-            width: double.infinity,
-            height: 200.h,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(Assets.imagesSelectimageSvg),
-                SizedBox(height: 16.h),
+class UploadProfileImage extends FormField<File?> {
+  UploadProfileImage({super.key, super.validator})
+    : super(
+        builder: (FormFieldState<File?> state) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FieldName(filedName: AppStrings.kUploadImageForProfile.tr()),
+              SizedBox(height: 8.h),
+              DottedBorder(
+                options: RectDottedBorderOptions(
+                  dashPattern: [4, 4],
+                  color: state.hasError
+                      ? AppColors.redFC1C1A
+                      : AppColors.primary04332D,
+                  strokeWidth: 1,
+                ),
+                child: Container(
+                  width: double.infinity,
+                  height: 200.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(Assets.imagesSelectimageSvg),
+                      SizedBox(height: 16.h),
+                      Text(
+                        AppStrings.kSelectFile.tr(),
+                        style: AppFonts.urbanistMedium16.copyWith(
+                          color: AppColors.primary04332D,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              if (state.hasError) ...[
+                SizedBox(height: 4.h),
                 Text(
-                  "selectfile".tr(),
-                  style: AppFonts.urbanistMedium16.copyWith(
-                    color: AppColors.primary04332D,
+                  state.errorText!,
+                  style: AppFonts.urbanistRegular12.copyWith(
+                    color: AppColors.redFC1C1A,
                   ),
                 ),
               ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+            ],
+          );
+        },
+      );
 }

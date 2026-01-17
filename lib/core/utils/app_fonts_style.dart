@@ -98,6 +98,11 @@ abstract class AppFonts {
     fontWeight: FontWeight.w600,
     fontSize: 14.sp,
   );
+  static TextStyle poppinsSemiBold9 = TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w600,
+    fontSize: 9.sp,
+  );
 
   /// ================= SF Pro Display =================
   static TextStyle sfProDisplayRegular14 = TextStyle(

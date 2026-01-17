@@ -1,4 +1,5 @@
 import 'package:animooo/core/utils/app_colors.dart';
+import 'package:animooo/core/utils/app_consts.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class CustomFormTextField extends StatelessWidget {
     this.keyboardType,
     this.suffixIcon,
     this.controller,
+    this.validator,
   });
 
   final bool obscureText;
@@ -19,20 +21,16 @@ class CustomFormTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final Widget? suffixIcon;
   final TextEditingController? controller;
+  final FormFieldValidator<String?>? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return 'thisFiledRequired'.tr();
-        }
-        return null;
-      },
+      validator: validator,
       controller: controller,
       cursorColor: AppColors.darkTeal05332E,
-      obscuringCharacter: '*',
-
+      obscuringCharacter: AppStrings.kObscuringCharacter,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       obscureText: obscureText,
       keyboardType: keyboardType,
       decoration: InputDecoration(

@@ -1,6 +1,5 @@
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HaveOrDontHaveAccount extends StatelessWidget {
@@ -23,14 +22,14 @@ class HaveOrDontHaveAccount extends StatelessWidget {
         TextSpan(
           children: [
             TextSpan(
-              text: haveorNotHaveAccount.tr(),
+              text: haveorNotHaveAccount,
               style: AppFonts.poppinsMedium14.copyWith(
                 color: AppColors.color828282,
               ),
             ),
 
             TextSpan(
-              text: authType.tr(),
+              text: authType,
               style: AppFonts.poppinsSemiBold14.copyWith(
                 color: AppColors.primary04332D,
                 decoration: TextDecoration.underline,

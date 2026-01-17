@@ -1,8 +1,10 @@
+import 'package:animooo/core/app_navigation.dart';
+import 'package:animooo/core/utils/app_consts.dart';
 import 'package:animooo/core/utils/route_manager.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_button.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_form_text_field.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_password_filed.dart';
-import 'package:animooo/feature/auth/presentation/widgets/dont_have_account.dart';
+import 'package:animooo/feature/auth/presentation/widgets/have_dont_have_account.dart';
 import 'package:animooo/feature/auth/presentation/widgets/filed_name.dart';
 import 'package:animooo/feature/auth/presentation/widgets/forget_password.dart';
 import 'package:animooo/feature/auth/presentation/widgets/logo_and_name.dart';
@@ -22,31 +24,34 @@ class LoginViewBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const LogoAndName(authType: 'login'),
+               LogoAndName(authType: AppStrings.kLogin.tr()),
               SizedBox(height: 45.h),
-              const FieldName(filedName: 'Email'),
+               FieldName(filedName: AppStrings.kEmail.tr()),
               SizedBox(height: 6.h),
 
               CustomFormTextField(
-                hintText: 'enterYourEmailAddress'.tr(),
+                hintText: AppStrings.kEnterYourEmailAddress.tr(),
                 keyboardType: TextInputType.emailAddress,
               ),
               SizedBox(height: 16.h),
-              const FieldName(filedName: "Password"),
+              FieldName(filedName: AppStrings.kPassword.tr()),
               SizedBox(height: 6.h),
 
               CustomPasswordField(),
 
               const ForgetPassword(),
               SizedBox(height: 31.h),
-              CustomButton(text: 'login'.tr(), onPressed: () {}),
+              CustomButton(text: AppStrings.kLogin.tr(), onPressed: () {}),
               SizedBox(height: MediaQuery.sizeOf(context).height * .265),
               Center(
                 child: HaveOrDontHaveAccount(
-                  authType: "signupnow",
-                  haveorNotHaveAccount: 'Donthaveanaccount',
+                  authType: AppStrings.kSignupNow,
+                  haveorNotHaveAccount: AppStrings.kDontHaveAnAccount,
                   onTap: () {
-                    Navigator.pushNamed(context, RouteName.signUpRoute);
+                    AppNavigation.pushNamedAndRemoveUntil(
+                      context,
+                      RouteName.signUpRoute,
+                    );
                   },
                 ),
               ),
