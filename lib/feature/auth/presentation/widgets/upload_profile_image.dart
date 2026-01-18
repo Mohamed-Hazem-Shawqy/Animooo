@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animooo/core/services/pick_image.dart';
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
@@ -35,18 +36,36 @@ class UploadProfileImage extends FormField<File?> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(Assets.imagesSelectimageSvg),
-                      SizedBox(height: AppSpacing.h16),
-                      Text(
-                        AppStrings.kSelectFile.tr(),
-                        style: AppFonts.urbanistMedium16.copyWith(
-                          color: AppColors.primary04332D,
-                        ),
-                      ),
-                    ],
+                  child: GestureDetector(
+                    onTap: () async {
+                      final File? file = await ImagePickerClass.imagePicker();
+                      if (file != null) {
+                        state.didChange(file);
+                      }
+                    },
+                    child: state.value == null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(Assets.imagesSelectimageSvg),
+                              SizedBox(height: AppSpacing.h16),
+                              Text(
+                                AppStrings.kSelectFile.tr(),
+                                style: AppFonts.urbanistMedium16.copyWith(
+                                  color: AppColors.primary04332D,
+                                ),
+                              ),
+                            ],
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(8.r),
+                            child: Image.file(
+                              state.value!,
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                   ),
                 ),
               ),

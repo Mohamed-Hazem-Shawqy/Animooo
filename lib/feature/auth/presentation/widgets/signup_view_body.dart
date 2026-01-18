@@ -1,4 +1,6 @@
-import 'dart:developer';
+import 'dart:io';
+
+import 'package:animooo/core/services/pick_image.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/utils/app_translate.dart';
@@ -6,6 +8,8 @@ import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/validators/empty_fileds_validator.dart';
 import 'package:animooo/core/validators/empty_img_validator.dart';
 import 'package:animooo/core/validators/phone_validator.dart';
+import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
+import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_button.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_form_text_field.dart';
 import 'package:animooo/feature/auth/presentation/widgets/filed_name.dart';
@@ -14,10 +18,13 @@ import 'package:animooo/feature/auth/presentation/widgets/password_and_confirm_p
 import 'package:animooo/feature/auth/presentation/widgets/signup_footer.dart';
 import 'package:animooo/feature/auth/presentation/widgets/upload_profile_image.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpViewBody extends StatefulWidget {
-  const SignUpViewBody({super.key});
+  const SignUpViewBody({super.key, required this.state});
+  final SignUpAuthState state;
 
   @override
   State<SignUpViewBody> createState() => _SignUpViewBodyState();
@@ -41,6 +48,15 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
     _lastNameController = TextEditingController();
     _phoneController = TextEditingController();
     _emailController = TextEditingController();
+
+    if (kDebugMode) {
+      _firstNameController.text = "John";
+      _lastNameController.text = "Doe";
+      _emailController.text = "hazm05771@gmail.com";
+      _phoneController.text = "01023217166";
+      _passwordController.text = "Password123#";
+      _confirmPasswordController.text = "Password123#";
+    }
     super.initState();
   }
 
@@ -114,18 +130,28 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   validator: (value) => EmptyImgValidator.call(value),
                 ),
                 SizedBox(height: AppSpacing.h28),
-                CustomButton(
-                  text: AppStrings.kSignup.tr(),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Process data.
-                      log('vaidated');
-                    } else {
-                      _autoValidateMode = AutovalidateMode.always;
-                      setState(() {});
-                    }
-                  },
-                ),
+                widget.state is SignUpAuthLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : CustomButton(
+                        text: AppStrings.kSignup.tr(),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<AuthCubit>().userSignUp(
+                              userEntity: SignupEntity(
+                                firstName: _firstNameController.text,
+                                lastName: _lastNameController.text,
+                                email: _emailController.text,
+                                phone: _phoneController.text,
+                                image: ImagePickerClass.fileImage!.path,
+                              ),
+                              password: _passwordController.text,
+                            );
+                          } else {
+                            _autoValidateMode = AutovalidateMode.always;
+                            setState(() {});
+                          }
+                        },
+                      ),
                 SizedBox(height: AppSpacing.h8),
                 const SignUpFooter(),
                 SizedBox(height: AppSpacing.h20),
