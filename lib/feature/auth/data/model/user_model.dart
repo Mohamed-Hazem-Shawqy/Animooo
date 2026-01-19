@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
 import 'package:dio/dio.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -27,8 +26,8 @@ class UserResponseModel {
   });
 
   factory UserResponseModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
-  Map<String, dynamic> toJson() => _$UserModelToJson(this);
+      _$UserResponseModelFromJson(json);
+  Map<String, dynamic> toJson() => _$UserResponseModelToJson(this);
 
   factory UserResponseModel.fromEntity(SignupEntity entity) {
     return UserResponseModel(
@@ -54,7 +53,7 @@ class UserResponseModel {
 }
 
 // dart run build_runner build --delete-conflicting-outputs
-class UserModel {
+class UserRequestModel {
   final String firstName;
   final String lastName;
   final String email;
@@ -62,7 +61,7 @@ class UserModel {
   final String password;
 
   final File image;
-  const UserModel({
+  const UserRequestModel({
     required this.firstName,
     required this.lastName,
     required this.email,

@@ -1,9 +1,11 @@
-import 'package:animooo/core/app_navigation.dart';
+import 'package:animooo/core/utils/app_navigation.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/utils/route_manager.dart';
 import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/validators/password_validator.dart';
+import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
+import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_button.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_form_text_field.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_password_filed.dart';
@@ -13,30 +15,32 @@ import 'package:animooo/feature/auth/presentation/widgets/forget_password.dart';
 import 'package:animooo/feature/auth/presentation/widgets/logo_and_name.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key});
+  const LoginViewBody({super.key, required this.state});
+  final AuthState state;
 
   @override
   State<LoginViewBody> createState() => _LoginViewBodyState();
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
   @override
   void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -58,6 +62,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 SizedBox(height: AppSpacing.h6),
 
                 CustomFormTextField(
+                  controller: _emailController,
                   hintText: AppStrings.kEnterYourEmailAddress.tr(),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) => EmailValidator.call(value),
@@ -67,23 +72,31 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 SizedBox(height: AppSpacing.h6),
 
                 CustomPasswordField(
+                  passwordController: _passwordController,
                   validator: (value) => PasswordValidator.call(value),
                 ),
 
                 const ForgetPassword(),
                 SizedBox(height: AppSpacing.h30),
-                CustomButton(
-                  text: AppStrings.kLogin.tr(),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Proceed with login
-                    } else {
-                      setState(() {
-                        _autovalidateMode = AutovalidateMode.always;
-                      });
-                    }
-                  },
-                ),
+                widget.state is SignInAuthLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : CustomButton(
+                        text: AppStrings.kLogin.tr(),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            context.read<AuthCubit>().userSignIn(
+                              userEntity: SigninEntity(
+                                email: _emailController.text,
+                              ),
+                              password: _passwordController.text,
+                            );
+                          } else {
+                            setState(() {
+                              _autovalidateMode = AutovalidateMode.always;
+                            });
+                          }
+                        },
+                      ),
                 SizedBox(height: MediaQuery.sizeOf(context).height * .265),
                 Center(
                   child: HaveOrDontHaveAccount(

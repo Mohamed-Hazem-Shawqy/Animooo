@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:animooo/core/services/pick_image.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_padding.dart';
@@ -24,7 +22,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpViewBody extends StatefulWidget {
   const SignUpViewBody({super.key, required this.state});
-  final SignUpAuthState state;
+  final AuthState state;
 
   @override
   State<SignUpViewBody> createState() => _SignUpViewBodyState();

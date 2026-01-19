@@ -13,8 +13,8 @@ class SignupView extends StatelessWidget {
     return BlocProvider(
       create: (context) => AuthCubit(getit<AuthRepoDecl>()),
       child: Scaffold(
-        body: BlocConsumer<AuthCubit, SignUpAuthState>(
-          listener: (BuildContext context, SignUpAuthState state) {
+        body: BlocConsumer<AuthCubit, AuthState>(
+          listener: (BuildContext context, AuthState state) {
             if (state is SignUpAuthFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

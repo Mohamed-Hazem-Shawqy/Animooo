@@ -10,6 +10,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class DioService implements ApiConsumer {
   final Dio _dio;
 
+
   DioService(this._dio) {
     _initDio();
   }
@@ -60,9 +61,9 @@ class DioService implements ApiConsumer {
   }
 
   @override
-  Future<dynamic> get({required String path}) async {
+  Future<dynamic> get({required String path, Map<String, dynamic>? queryParameters}) async {
     try {
-      var response = await _dio.get(path);
+      var response = await _dio.get(path,queryParameters: queryParameters);
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.data;
       } else {
