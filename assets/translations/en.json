@@ -24,5 +24,10 @@
     "password_lowercase": "One lowercase character.",
     "password_special": "One special character.",
     "password_number": "One number.",
-    "pleaseuploadyourprofileimage": "Please upload your profile image."
+    "pleaseuploadyourprofileimage": "Please upload your profile image.",
+    "cancel": "Cancel",
+    "otp_verification": "OTP Verification",
+    "pleaseCheckYourEmailForOTP": "Please enter the 5 digit code sent your email address.",
+    "Confirm": "Confirm",
+    "resendCode": "Resend Code In "
 }

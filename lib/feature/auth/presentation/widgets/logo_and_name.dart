@@ -19,7 +19,7 @@ class LogoAndName extends StatelessWidget {
           child: Text(AppStrings.kAppName, style: AppFonts.originalSurfer11),
         ),
         SizedBox(height: AppSpacing.h30),
-        Center(child: Text(authType, style: AppFonts.otama38)),
+        Center(child: Text(authType, style: AppFonts.otamaRegular38)),
       ],
     );
   }

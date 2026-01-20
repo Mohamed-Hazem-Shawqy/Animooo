@@ -10,6 +10,7 @@ class AppSpacing {
   static double h12 = 12.h;
   static double h14 = 14.h;
   static double h16 = 16.h;
+  static double h17 = 17.h;
   static double h18 = 18.h;
   static double h20 = 20.h;
   static double h24 = 24.h;
@@ -18,8 +19,11 @@ class AppSpacing {
   static double h32 = 32.h;
   static double h34 = 34.h;
   static double h40 = 40.h;
+  static double h41 = 41.h;
   static double h45 = 45.h;
   static double h44 = 44.h;
+  static double h53 = 53.h;
+  static double h54 = 54.h;
   static double h200 = 200.h;
 
   // Widths
@@ -37,4 +41,5 @@ class AppSpacing {
   static double w28 = 28.w;
   static double w32 = 32.w;
   static double w40 = 40.w;
+  static double w54 = 54.w;
 }

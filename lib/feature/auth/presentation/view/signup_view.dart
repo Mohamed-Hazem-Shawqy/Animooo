@@ -1,4 +1,6 @@
 import 'package:animooo/core/services/get_it.dart';
+import 'package:animooo/core/utils/app_navigation.dart';
+import 'package:animooo/core/utils/route_manager.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/feature/auth/presentation/widgets/signup_view_body.dart';
@@ -31,7 +33,9 @@ class SignupView extends StatelessWidget {
                   ),
                   backgroundColor: Colors.green,
                 ),
+                
               );
+              AppNavigation.pushNamed(context, RouteName.otpRoute);
             }
           },
           builder: (context, state) {

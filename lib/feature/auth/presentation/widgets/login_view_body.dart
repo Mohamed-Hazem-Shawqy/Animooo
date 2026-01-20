@@ -6,7 +6,7 @@ import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/validators/password_validator.dart';
 import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
-import 'package:animooo/feature/auth/presentation/widgets/custom_button.dart';
+import 'package:animooo/core/widgets/custom_button.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_form_text_field.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_password_filed.dart';
 import 'package:animooo/feature/auth/presentation/widgets/have_dont_have_account.dart';

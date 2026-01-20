@@ -1,0 +1,38 @@
+import 'package:animooo/core/utils/app_colors.dart';
+import 'package:animooo/core/utils/app_const_string.dart';
+import 'package:animooo/core/utils/app_fonts_style.dart';
+import 'package:animooo/core/utils/app_navigation.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+PreferredSizeWidget? appBarFunc(BuildContext context) {
+  return AppBar(
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () {
+            AppNavigation.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 4.0),
+            child: Icon(
+              Icons.arrow_back_ios,
+              weight: 10,
+              size: 25.sp,
+              color: AppColors.primary04332D,
+            ),
+          ),
+        ),
+        const SizedBox(width: 2),
+        Text(
+          AppStrings.kCancel.tr(),
+          style: AppFonts.otamaRegular20.copyWith(
+            color: AppColors.primary04332D,
+          ),
+        ),
+      ],
+    ),
+  );
+}

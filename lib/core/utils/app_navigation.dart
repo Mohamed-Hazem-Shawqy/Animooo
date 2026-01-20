@@ -18,4 +18,8 @@ class AppNavigation {
   static void pushReplaceMentNamed(BuildContext context, RouteName routeName) {
     Navigator.of(context).pushReplacementNamed(routeName.path);
   }
+
+  static void pop(BuildContext context) {
+    Navigator.of(context).pop();
+  }
 }

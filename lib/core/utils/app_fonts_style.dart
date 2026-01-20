@@ -8,6 +8,11 @@ abstract class AppFonts {
     fontWeight: FontWeight.w400,
     fontSize: 12.sp,
   );
+  static TextStyle interRegular14 = TextStyle(
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w400,
+    fontSize: 14.sp,
+  );
 
   static TextStyle interRegular16 = TextStyle(
     fontFamily: 'Inter',
@@ -41,10 +46,15 @@ abstract class AppFonts {
   );
 
   /// ================= Otama =================
-  static TextStyle otama38 = TextStyle(
+  static TextStyle otamaRegular38 = TextStyle(
     fontFamily: 'Otama',
     fontWeight: FontWeight.w400,
     fontSize: 38.sp,
+  );
+  static TextStyle otamaRegular20 = TextStyle(
+    fontFamily: 'Otama',
+    fontWeight: FontWeight.w400,
+    fontSize: 20.sp,
   );
 
   /// ================= Plus Jakarta Sans =================

@@ -39,4 +39,9 @@ abstract class AppStrings {
   static const String kPasswordLowercase = "password_lowercase";
   static const String kPasswordSpecial = "password_special";
   static const String kPasswordNumber = "password_number";
+  static const String kCancel = "cancel";
+  static const String kOtpVerification = "otp_verification";
+  static const String kPleaseCheckYourEmailForOTP = "pleaseCheckYourEmailForOTP";
+  static const String kConfirm = "Confirm";
+  static const String kResendCode = "resendCode";
 }
