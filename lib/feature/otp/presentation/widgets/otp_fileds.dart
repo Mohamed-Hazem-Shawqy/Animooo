@@ -6,17 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpFileds extends StatelessWidget {
-  const OtpFileds({
-    super.key,
-  });
-
+  const OtpFileds({super.key, required this.otpController});
+  final TextEditingController otpController;
   @override
   Widget build(BuildContext context) {
     return Pinput(
       separatorBuilder: (index) => SizedBox(width: AppSpacing.w18),
       autofocus: true,
       length: 5,
-       onCompleted: (pin) {},
+      controller: otpController,
+
       defaultPinTheme: PinTheme(
         width: AppSpacing.w54,
         height: AppSpacing.h53,
@@ -28,7 +27,7 @@ class OtpFileds extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.r),
         ),
       ),
-    
+
       focusedPinTheme: PinTheme(
         width: AppSpacing.w54,
         height: AppSpacing.h53,
@@ -43,16 +42,12 @@ class OtpFileds extends StatelessWidget {
       errorPinTheme: PinTheme(
         width: AppSpacing.w54,
         height: AppSpacing.h53,
-        textStyle: AppFonts.otamaRegular20.copyWith(
-          color: AppColors.redFC1C1A,
-        ),
+        textStyle: AppFonts.otamaRegular20.copyWith(color: AppColors.redFC1C1A),
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.redFC1C1A),
           borderRadius: BorderRadius.circular(10.r),
         ),
       ),
-    
-     
     );
   }
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  setUpGetit();
+  await setUpGetit();
   //10.0.2.2 - Android Emulator localhost
   runApp(MyApp());
 }

@@ -10,12 +10,14 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class DioService implements ApiConsumer {
   final Dio _dio;
 
-
   DioService(this._dio) {
     _initDio();
   }
   void _initDio() {
     _dio.options.baseUrl = EndPoints.baseUrl;
+    _dio.options.connectTimeout = const Duration(seconds: 5);
+    // _dio.options.receiveTimeout = const Duration(seconds: 30);
+    // _dio.options.sendTimeout = const Duration(seconds: 30);
     //interceptors while every request and response and error
     _dio.interceptors.add(
       InterceptorsWrapper(
@@ -61,9 +63,12 @@ class DioService implements ApiConsumer {
   }
 
   @override
-  Future<dynamic> get({required String path, Map<String, dynamic>? queryParameters}) async {
+  Future<dynamic> get({
+    required String path,
+    Map<String, dynamic>? queryParameters,
+  }) async {
     try {
-      var response = await _dio.get(path,queryParameters: queryParameters);
+      var response = await _dio.get(path, queryParameters: queryParameters);
       if (response.statusCode == 200 || response.statusCode == 201) {
         return response.data;
       } else {

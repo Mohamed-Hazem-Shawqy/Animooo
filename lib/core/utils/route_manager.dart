@@ -1,5 +1,7 @@
 import 'package:animooo/feature/auth/presentation/view/login_view.dart';
 import 'package:animooo/feature/auth/presentation/view/signup_view.dart';
+import 'package:animooo/feature/new_password/presentation/view/create_new_password_view.dart';
+import 'package:animooo/feature/new_password/presentation/view/forget_password_view.dart';
 import 'package:animooo/feature/otp/presentation/view/otp_view.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +13,11 @@ abstract class RouteManager {
     } else if (setting.name == RouteName.signUpRoute.path) {
       widget = SignupView();
     } else if (setting.name == RouteName.otpRoute.path) {
-      widget = OtpView();
+      widget = OtpView(email: setting.arguments as String?);
+    } else if (setting.name == RouteName.forgetYourPasswordRoute.path) {
+      widget = ForgetPasswordView();
+    } else if (setting.name == RouteName.createNewPasswordRoute.path) {
+      widget = CreateNewPasswordView();
     } else {
       widget = UnKnownRoute(setting: setting);
     }
@@ -33,9 +39,11 @@ class UnKnownRoute extends StatelessWidget {
 }
 
 enum RouteName {
-  loginRoute('/h'),
+  loginRoute('/'),
   signUpRoute('/SignUp'),
-  otpRoute('/');
+  otpRoute('/Otp'),
+  forgetYourPasswordRoute('/ForgetYourPassword'),
+  createNewPasswordRoute('/CreateNewPassword');
 
   final String path;
   const RouteName(this.path);

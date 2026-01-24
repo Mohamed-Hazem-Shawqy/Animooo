@@ -5,7 +5,7 @@ import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/validators/confirem_password_validator.dart';
 import 'package:animooo/core/validators/password_validator.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_password_filed.dart';
-import 'package:animooo/feature/auth/presentation/widgets/filed_name.dart';
+import 'package:animooo/core/widgets/filed_name.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -13,17 +13,18 @@ class PasswordAndConfirmPassword extends StatelessWidget {
   const PasswordAndConfirmPassword({
     super.key,
     required this.passwordController,
-    required this.confirmPasswordController,
+    required this.confirmPasswordController, required this.filedName,
   });
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
+  final String filedName ;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        FieldName(filedName: AppStrings.kPassword.tr()),
+        FieldName(filedName: filedName),
         SizedBox(height: AppSpacing.h6),
         CustomPasswordField(
           passwordController: passwordController,

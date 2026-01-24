@@ -19,7 +19,7 @@
     "confirmpassword": "Confirm Password",
     "uploadimageforyourprofile": "Upload image for your profile",
     "selectfile": "Select File",
-    "password_min_length": "Minimum characters 6.",
+    "password_min_length": "Minimum characters 12.",
     "password_uppercase": "One uppercase character.",
     "password_lowercase": "One lowercase character.",
     "password_special": "One special character.",
@@ -29,5 +29,12 @@
     "otp_verification": "OTP Verification",
     "pleaseCheckYourEmailForOTP": "Please enter the 5 digit code sent your email address.",
     "Confirm": "Confirm",
-    "resendCode": "Resend Code In "
+    "resendCode": "Resend Code In ",
+    "back": "Back",
+    "forgetYourPassword": "Forget Your Password ?",
+    "pleaseEnterYourEmail": "Please enter the email address associated with your account, and we'll send you OTP to reset your password.",
+    "sendCode":"Send  Code",
+    "createNewPassword":"Create New Password",
+    "submit":"Submit",
+    "newPassword":"New Password"
 }

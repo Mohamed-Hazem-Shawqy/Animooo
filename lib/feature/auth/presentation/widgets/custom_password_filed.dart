@@ -1,5 +1,5 @@
 import 'package:animooo/core/utils/app_const_string.dart';
-import 'package:animooo/feature/auth/presentation/widgets/custom_form_text_field.dart';
+import 'package:animooo/core/widgets/custom_form_text_field.dart';
 import 'package:flutter/material.dart';
 
 class CustomPasswordField extends StatefulWidget {

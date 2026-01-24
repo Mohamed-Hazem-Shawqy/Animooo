@@ -1,13 +1,13 @@
 import 'package:animooo/core/utils/app_colors.dart';
-import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_navigation.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-PreferredSizeWidget? appBarFunc(BuildContext context) {
+PreferredSizeWidget? appBarFunc(BuildContext context, String text) {
   return AppBar(
+    automaticallyImplyLeading: false,
+
     title: Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -27,7 +27,7 @@ PreferredSizeWidget? appBarFunc(BuildContext context) {
         ),
         const SizedBox(width: 2),
         Text(
-          AppStrings.kCancel.tr(),
+          text,
           style: AppFonts.otamaRegular20.copyWith(
             color: AppColors.primary04332D,
           ),

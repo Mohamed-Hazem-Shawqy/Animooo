@@ -11,8 +11,9 @@ class AppNavigation {
     ).pushNamedAndRemoveUntil(routeName.path, (route) => false);
   }
 
-  static void pushNamed(BuildContext context, RouteName routeName) {
-    Navigator.of(context).pushNamed(routeName.path);
+  static void pushNamed(BuildContext context, RouteName routeName,{Object? arguments}) {
+    Navigator.of(context).pushNamed(routeName.path,arguments:arguments );
+
   }
 
   static void pushReplaceMentNamed(BuildContext context, RouteName routeName) {

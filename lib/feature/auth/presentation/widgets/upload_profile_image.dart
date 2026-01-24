@@ -6,7 +6,7 @@ import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_images.dart';
 import 'package:animooo/core/utils/app_padding.dart';
-import 'package:animooo/feature/auth/presentation/widgets/filed_name.dart';
+import 'package:animooo/core/widgets/filed_name.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';

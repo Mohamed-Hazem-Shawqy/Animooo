@@ -1,6 +1,8 @@
 import 'package:animooo/core/services/get_it.dart';
 import 'package:animooo/core/utils/app_navigation.dart';
 import 'package:animooo/core/utils/route_manager.dart';
+import 'package:animooo/core/widgets/custom_snackbar.dart';
+import 'package:animooo/feature/auth/data/model/user_model.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/feature/auth/presentation/widgets/signup_view_body.dart';
@@ -18,24 +20,22 @@ class SignupView extends StatelessWidget {
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (BuildContext context, AuthState state) {
             if (state is SignUpAuthFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.errMessage),
-                  backgroundColor: Colors.red,
-                  // padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                ),
-              );
+              snackBarErrorFunction(context, state.errMessage);
             } else if (state is SignUpAuthSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Signup Successful! Welcome ${state.signupEntity.firstName}',
-                  ),
-                  backgroundColor: Colors.green,
-                ),
-                
+              final userModel = UserResponseModel.fromEntity(
+                state.signupEntity,
               );
-              AppNavigation.pushNamed(context, RouteName.otpRoute);
+              final email = userModel.email;
+
+              snackBarSuccessFunction(
+                context,
+                "Signup Successful! Welcome ${state.signupEntity.firstName}",
+              );
+              AppNavigation.pushNamed(
+                context,
+                RouteName.otpRoute,
+                arguments: email,
+              );
             }
           },
           builder: (context, state) {

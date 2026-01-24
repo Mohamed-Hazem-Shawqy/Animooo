@@ -6,13 +6,14 @@ import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/validators/empty_fileds_validator.dart';
 import 'package:animooo/core/validators/empty_img_validator.dart';
 import 'package:animooo/core/validators/phone_validator.dart';
+import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/core/widgets/custom_button.dart';
-import 'package:animooo/feature/auth/presentation/widgets/custom_form_text_field.dart';
-import 'package:animooo/feature/auth/presentation/widgets/filed_name.dart';
+import 'package:animooo/core/widgets/custom_form_text_field.dart';
+import 'package:animooo/core/widgets/filed_name.dart';
 import 'package:animooo/feature/auth/presentation/widgets/logo_and_name.dart';
-import 'package:animooo/feature/auth/presentation/widgets/password_and_confirm_password.dart';
+import 'package:animooo/core/widgets/password_and_confirm_password.dart';
 import 'package:animooo/feature/auth/presentation/widgets/signup_footer.dart';
 import 'package:animooo/feature/auth/presentation/widgets/upload_profile_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -122,6 +123,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 PasswordAndConfirmPassword(
                   passwordController: _passwordController,
                   confirmPasswordController: _confirmPasswordController,
+                  filedName: AppStrings.kPassword.tr(),
                 ),
                 SizedBox(height: AppSpacing.h16),
                 UploadProfileImage(
@@ -129,7 +131,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                 ),
                 SizedBox(height: AppSpacing.h28),
                 widget.state is SignUpAuthLoading
-                    ? const Center(child: CircularProgressIndicator())
+                    ? CustomLoadingIndecator()
                     : CustomButton(
                         text: AppStrings.kSignup.tr(),
                         onPressed: () {

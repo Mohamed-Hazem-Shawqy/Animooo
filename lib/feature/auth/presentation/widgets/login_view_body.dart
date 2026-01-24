@@ -4,13 +4,14 @@ import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/utils/route_manager.dart';
 import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/validators/password_validator.dart';
+import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/core/widgets/custom_button.dart';
-import 'package:animooo/feature/auth/presentation/widgets/custom_form_text_field.dart';
+import 'package:animooo/core/widgets/custom_form_text_field.dart';
 import 'package:animooo/feature/auth/presentation/widgets/custom_password_filed.dart';
 import 'package:animooo/feature/auth/presentation/widgets/have_dont_have_account.dart';
-import 'package:animooo/feature/auth/presentation/widgets/filed_name.dart';
+import 'package:animooo/core/widgets/filed_name.dart';
 import 'package:animooo/feature/auth/presentation/widgets/forget_password.dart';
 import 'package:animooo/feature/auth/presentation/widgets/logo_and_name.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -79,7 +80,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 const ForgetPassword(),
                 SizedBox(height: AppSpacing.h30),
                 widget.state is SignInAuthLoading
-                    ? const Center(child: CircularProgressIndicator())
+                    ? CustomLoadingIndecator()
                     : CustomButton(
                         text: AppStrings.kLogin.tr(),
                         onPressed: () {
