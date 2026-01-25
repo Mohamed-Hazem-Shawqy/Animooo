@@ -13,11 +13,21 @@ abstract class RouteManager {
     } else if (setting.name == RouteName.signUpRoute.path) {
       widget = SignupView();
     } else if (setting.name == RouteName.otpRoute.path) {
-      widget = OtpView(email: setting.arguments as String?);
+      final args = setting.arguments as OtpArgs;
+      widget = OtpView(email: args.email, purpose: args.purpose);
     } else if (setting.name == RouteName.forgetYourPasswordRoute.path) {
       widget = ForgetPasswordView();
     } else if (setting.name == RouteName.createNewPasswordRoute.path) {
-      widget = CreateNewPasswordView();
+      final args = setting.arguments;
+      String email = '';
+      if (args is CreateNewPasswordArgs) {
+        email = args.email;
+      } else if (args is OtpArgs) {
+        email = args.email;
+      } else if (args is String) {
+        email = args;
+      }
+      widget = CreateNewPasswordView(email: email);
     } else {
       widget = UnKnownRoute(setting: setting);
     }
@@ -47,4 +57,18 @@ enum RouteName {
 
   final String path;
   const RouteName(this.path);
+}
+
+enum OtpPurpose { signUp, forgetPassword }
+
+class OtpArgs {
+  final String email;
+  final OtpPurpose purpose;
+
+  const OtpArgs({required this.email, required this.purpose});
+}
+
+class CreateNewPasswordArgs {
+  final String email;
+  const CreateNewPasswordArgs(this.email);
 }

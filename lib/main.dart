@@ -10,3 +10,4 @@ void main() async {
   //10.0.2.2 - Android Emulator localhost
   runApp(MyApp());
 }
+

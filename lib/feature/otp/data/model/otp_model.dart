@@ -3,13 +3,13 @@ import 'package:animooo/feature/otp/domain/entities/otp_entity.dart';
 class OtpModel {
   final String email;
 
-  final String firstName;
-  final String lastName;
-  final String phone;
+  final String? firstName;
+  final String? lastName;
+  final String? phone;
 
-  final String imagePath;
+  final String? imagePath;
 
-  final String isVerified;
+  final String? isVerified;
 
   final String? refreshToken;
 
@@ -17,11 +17,11 @@ class OtpModel {
 
   OtpModel({
     required this.email,
-    required this.firstName,
-    required this.lastName,
-    required this.phone,
-    required this.imagePath,
-    required this.isVerified,
+     this.firstName,
+     this.lastName,
+     this.phone,
+     this.imagePath,
+     this.isVerified,
     this.refreshToken,
     this.accessToken,
   });
@@ -42,6 +42,7 @@ class OtpModel {
   }
 
   OtpEntity toEntity() => OtpEntity(email: email);
+  factory OtpModel.fromEntity(OtpEntity entity) => OtpModel(email: entity.email);
 }
 
 class OtpRequestModel {

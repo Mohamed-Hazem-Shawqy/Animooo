@@ -16,11 +16,19 @@ class AppNavigation {
 
   }
 
-  static void pushReplaceMentNamed(BuildContext context, RouteName routeName) {
-    Navigator.of(context).pushReplacementNamed(routeName.path);
+  static void pushReplaceMentNamed(BuildContext context, RouteName routeName,{Object? arguments}) {
+    Navigator.of(context).pushReplacementNamed(routeName.path,arguments: arguments);
   }
 
   static void pop(BuildContext context) {
     Navigator.of(context).pop();
   }
+}
+
+class ArgumentsModel
+{
+  final String comeFromScreen;
+  final Object data;
+  final String orders;
+  ArgumentsModel({ required this.comeFromScreen, required this.data, required this.orders});
 }

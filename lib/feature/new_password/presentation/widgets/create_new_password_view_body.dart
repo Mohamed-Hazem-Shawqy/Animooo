@@ -1,14 +1,25 @@
+import 'dart:developer';
+
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/widgets/custom_button.dart';
+import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/core/widgets/password_and_confirm_password.dart';
+import 'package:animooo/feature/new_password/presentation/manager/create_new_password_cubit/create_new_password_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CreateNewPasswordViewBody extends StatefulWidget {
-  const CreateNewPasswordViewBody({super.key});
+  const CreateNewPasswordViewBody({
+    super.key,
+    required this.state,
+    required this.email,
+  });
+  final CreateNewPasswordState state;
+  final String email;
 
   @override
   State<CreateNewPasswordViewBody> createState() =>
@@ -61,12 +72,25 @@ class _CreateNewPasswordViewBodyState extends State<CreateNewPasswordViewBody> {
               ),
               SizedBox(height: AppSpacing.h82),
 
-              CustomButton(
-                text: AppStrings.kSubmit,
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {}
-                },
-              ),
+              widget.state is CreateNewPasswordLoading
+                  ? const CustomLoadingIndecator()
+                  : CustomButton(
+                      text: AppStrings.kSubmit,
+                      onPressed: () {
+                        log(widget.email);
+                        if (_formKey.currentState!.validate()) {
+                          context
+                              .read<CreateNewPasswordCubit>()
+                              .createNewPassword(
+                                password: passwordController.text,
+                                confirmPassword: confirmPasswordController.text,
+                                email: widget.email,
+                              );
+                          log(widget.email);
+                        }
+                        log(widget.email);
+                      },
+                    ),
             ],
           ),
         ),

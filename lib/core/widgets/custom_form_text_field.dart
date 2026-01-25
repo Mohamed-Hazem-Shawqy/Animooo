@@ -9,11 +9,11 @@ class CustomFormTextField extends StatelessWidget {
   const CustomFormTextField({
     super.key,
     this.obscureText = false,
-    required this.hintText,
     this.keyboardType,
     this.suffixIcon,
     this.controller,
     this.validator,
+    required this.hintText,
   });
 
   final bool obscureText;

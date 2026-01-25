@@ -34,7 +34,7 @@ class SignupView extends StatelessWidget {
               AppNavigation.pushNamed(
                 context,
                 RouteName.otpRoute,
-                arguments: email,
+                arguments: OtpArgs(email: email, purpose: OtpPurpose.signUp),
               );
             }
           },

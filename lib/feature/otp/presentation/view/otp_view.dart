@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animooo/core/helper_function/appbar_func.dart';
 import 'package:animooo/core/services/get_it.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
@@ -14,8 +16,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpView extends StatelessWidget {
-  const OtpView({super.key, required this.email});
-  final String? email;
+  const OtpView({super.key, required this.email, required this.purpose});
+  final String email;
+
+  final OtpPurpose purpose;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +39,19 @@ class OtpView extends StatelessWidget {
           listener: (context, state) {
             if (state is OtpVerificationSuccess) {
               snackBarSuccessFunction(context, 'Verication Successful');
-              AppNavigation.pushNamedAndRemoveUntil(
-                context,
-                RouteName.loginRoute,
-              );
+              if (purpose == OtpPurpose.signUp) {
+                AppNavigation.pushNamedAndRemoveUntil(
+                  context,
+                  RouteName.loginRoute,
+                );
+              } else if (purpose == OtpPurpose.forgetPassword) {
+                log('otp Email: $email');
+                AppNavigation.pushReplaceMentNamed(
+                  context,
+                  RouteName.createNewPasswordRoute,
+                  arguments: CreateNewPasswordArgs(email),
+                );
+              }
             } else if (state is OtpVerificationFailure) {
               snackBarErrorFunction(
                 context,
