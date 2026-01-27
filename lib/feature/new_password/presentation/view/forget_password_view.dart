@@ -10,6 +10,7 @@ import 'package:animooo/feature/new_password/presentation/widgets/forget_passwor
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ForgetPasswordView extends StatelessWidget {
   const ForgetPasswordView({super.key});
@@ -39,7 +40,11 @@ class ForgetPasswordView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return ForgetPasswordViewBody(state: state);
+            return ModalProgressHUD(
+              inAsyncCall: state is ForgetPasswordLoading,
+              progressIndicator: const CircularProgressIndicator(),
+              child: ForgetPasswordViewBody(),
+            );
           },
         ),
       ),

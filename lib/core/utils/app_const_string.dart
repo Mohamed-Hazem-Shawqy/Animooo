@@ -16,6 +16,8 @@ abstract class AppStrings {
   static const String kHaveAnAccount = "haveanaccount";
   static const String kSignupNow = "signupnow";
   static const String kSignup = "signup";
+  static const String kAccessToken = "access_token";
+  static const String kRefreshToken = "refresh_token";
 
   // User info
   static const String kFirstName = "firstname";
@@ -52,4 +54,14 @@ abstract class AppStrings {
   static const String kCreateNewPassword = "createNewPassword";
   static const String kSubmit = "submit";
   static const String kNewPassword = "newPassword";
+  static const String kNoInternet = "NoInternet";
+  static const String kHelloIn = "helloin";
+  static const String kUnableToConnectTheInternet =
+      "unableToConnectTheInternet";
+  static const String kHome = "home";
+  static const String kSearch = "search";
+  static const String kCategory = "category";
+  static const String kAnimal = "animal";
+  static const String kMe = "me";
+  static const String kisloggedin = "isloggedin";
 }

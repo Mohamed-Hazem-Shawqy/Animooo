@@ -1,3 +1,5 @@
+import 'package:animooo/core/singletoon/shared_pref_singletoon.dart';
+import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
 import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
@@ -7,8 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this.authRepoDecl) : super(SignUpAuthInitial());
+  AuthCubit(this.authRepoDecl,   this.sharedPrefSingletoon)
+    : super(SignUpAuthInitial());
   final AuthRepoDecl authRepoDecl;
+  final SharedPrefSingletoon sharedPrefSingletoon;
   Future userSignUp({
     required SignupEntity userEntity,
     required String password,
@@ -22,6 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
       (user) => emit(SignUpAuthSuccess(user)),
     );
   }
+
   Future userSignIn({
     required SigninEntity userEntity,
     required String password,
@@ -29,9 +34,11 @@ class AuthCubit extends Cubit<AuthState> {
     emit(SignInAuthLoading());
     final response = await authRepoDecl.userSignIn(userEntity, password);
 
-    response.fold(
-      (failure) => emit(SignInAuthFailure(failure.errMessage)),
-      (user) => emit(SignInAuthSuccess(user)),
-    );
+    response.fold((failure) => emit(SignInAuthFailure(failure.errMessage)), (
+      user,
+    ) async {
+      await sharedPrefSingletoon.setBool(AppStrings.kisloggedin, true);
+      emit(SignInAuthSuccess(user));
+    });
   }
 }

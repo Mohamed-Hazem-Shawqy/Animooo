@@ -1,4 +1,5 @@
-import 'package:animooo/core/utils/app_const_string.dart';
+import 'package:animooo/core/extensions/getit_extenstions.dart';
+import 'package:animooo/core/services/get_it.dart';
 import 'package:animooo/core/utils/route_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -10,18 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  EasyLocalization(
-      supportedLocales: [Locale(AppStrings.kEn), Locale(AppStrings.kAr)],
-      path: 'assets/translations',
-      fallbackLocale: Locale(AppStrings.kEn),
-      saveLocale: true,
-      child: ScreenUtilInit(
+    return   ScreenUtilInit(
         designSize: Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
-          
+          navigatorKey:getit.navigationState,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
@@ -29,7 +25,7 @@ class MyApp extends StatelessWidget {
             onGenerateRoute: RouteManager.onGenerateRoute, 
           );
         },
-      ),
+      
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:animooo/core/services/get_it.dart';
+import 'package:animooo/core/singletoon/shared_pref_singletoon.dart';
 import 'package:animooo/core/utils/app_navigation.dart';
 import 'package:animooo/core/utils/route_manager.dart';
+import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/core/widgets/custom_snackbar.dart';
 import 'package:animooo/feature/auth/data/model/user_model.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
@@ -8,6 +10,7 @@ import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.
 import 'package:animooo/feature/auth/presentation/widgets/signup_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
@@ -15,7 +18,8 @@ class SignupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AuthCubit(getit<AuthRepoDecl>()),
+      create: (context) =>
+          AuthCubit(getit<AuthRepoDecl>(), getit<SharedPrefSingletoon>()),
       child: Scaffold(
         body: BlocConsumer<AuthCubit, AuthState>(
           listener: (BuildContext context, AuthState state) {
@@ -39,7 +43,11 @@ class SignupView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return SignUpViewBody(state: state);
+            return ModalProgressHUD(
+              inAsyncCall: state is SignUpAuthLoading,
+              progressIndicator: const CustomLoadingIndecator(),
+              child: SignUpViewBody(),
+            );
           },
         ),
       ),

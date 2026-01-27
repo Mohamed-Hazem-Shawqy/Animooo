@@ -33,8 +33,16 @@
     "back": "Back",
     "forgetYourPassword": "Forget Your Password ?",
     "pleaseEnterYourEmail": "Please enter the email address associated with your account, and we'll send you OTP to reset your password.",
-    "sendCode":"Send  Code",
-    "createNewPassword":"Create New Password",
-    "submit":"Submit",
-    "newPassword":"New Password"
+    "sendCode": "Send  Code",
+    "createNewPassword": "Create New Password",
+    "submit": "Submit",
+    "newPassword": "New Password",
+    "NoInternet": "No Internet Connection Found!",
+    "unableToConnectTheInternet": "Unable to connect to the internet. Please check your connection and try again.",
+    "helloin":"Hello in",
+    "home":"Home",
+    "search":"Search",
+    "category":"Category",
+    "animal":"Animal",
+    "me":"Me"
 }

@@ -12,6 +12,7 @@ import 'package:animooo/feature/new_password/presentation/widgets/create_new_pas
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class CreateNewPasswordView extends StatelessWidget {
   const CreateNewPasswordView({super.key, required this.email});
@@ -37,7 +38,10 @@ class CreateNewPasswordView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return CreateNewPasswordViewBody(state: state, email: email);
+            return ModalProgressHUD(
+              inAsyncCall: state is CreateNewPasswordLoading,
+              progressIndicator: const CircularProgressIndicator(),
+              child: CreateNewPasswordViewBody( email: email));
           },
         ),
       ),

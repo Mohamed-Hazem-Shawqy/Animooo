@@ -4,7 +4,6 @@ import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/utils/route_manager.dart';
 import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/validators/password_validator.dart';
-import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/core/widgets/custom_button.dart';
@@ -19,8 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginViewBody extends StatefulWidget {
-  const LoginViewBody({super.key, required this.state});
-  final AuthState state;
+  const LoginViewBody({super.key});
 
   @override
   State<LoginViewBody> createState() => _LoginViewBodyState();
@@ -79,25 +77,22 @@ class _LoginViewBodyState extends State<LoginViewBody> {
 
                 const ForgetPassword(),
                 SizedBox(height: AppSpacing.h30),
-                widget.state is SignInAuthLoading
-                    ? CustomLoadingIndecator()
-                    : CustomButton(
-                        text: AppStrings.kLogin.tr(),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            context.read<AuthCubit>().userSignIn(
-                              userEntity: SigninEntity(
-                                email: _emailController.text,
-                              ),
-                              password: _passwordController.text,
-                            );
-                          } else {
-                            setState(() {
-                              _autovalidateMode = AutovalidateMode.always;
-                            });
-                          }
-                        },
-                      ),
+
+                CustomButton(
+                  text: AppStrings.kLogin.tr(),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      context.read<AuthCubit>().userSignIn(
+                        userEntity: SigninEntity(email: _emailController.text),
+                        password: _passwordController.text,
+                      );
+                    } else {
+                      setState(() {
+                        _autovalidateMode = AutovalidateMode.always;
+                      });
+                    }
+                  },
+                ),
                 SizedBox(height: MediaQuery.sizeOf(context).height * .265),
                 Center(
                   child: HaveOrDontHaveAccount(

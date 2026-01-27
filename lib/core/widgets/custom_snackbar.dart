@@ -7,11 +7,12 @@ ScaffoldFeatureController snackBarErrorFunction(
 ) {
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text(content),
+      content: Text(content, textAlign: TextAlign.center),
       backgroundColor: Colors.red,
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.symmetric(horizontal: 60.w, vertical: 60.h),
+      margin: EdgeInsets.symmetric(horizontal: 60.w, vertical: 70.h),
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
     ),
   );
@@ -23,11 +24,11 @@ ScaffoldFeatureController snackBarSuccessFunction(
 ) {
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text(content),
+      content: Text(content, textAlign: TextAlign.center),
       backgroundColor: Colors.green,
 
       behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.symmetric(horizontal: 60.w, vertical: 60.h),
+      margin: EdgeInsets.symmetric(horizontal: 60.w, vertical: 70.h),
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r)),
     ),

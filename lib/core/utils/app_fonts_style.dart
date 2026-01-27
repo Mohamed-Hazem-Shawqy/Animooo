@@ -44,6 +44,11 @@ abstract class AppFonts {
     fontWeight: FontWeight.w400,
     fontSize: 11.sp,
   );
+  static TextStyle originalSurfer24 = TextStyle(
+    fontFamily: 'OriginalSurfer',
+    fontWeight: FontWeight.w400,
+    fontSize: 24.sp,
+  );
 
   /// ================= Otama =================
   static TextStyle otamaRegular38 = TextStyle(
@@ -138,6 +143,11 @@ abstract class AppFonts {
     fontFamily: 'Urbanist',
     fontWeight: FontWeight.w500,
     fontSize: 16.sp,
+  );
+  static TextStyle urbanistMedium14 = TextStyle(
+    fontFamily: 'Urbanist',
+    fontWeight: FontWeight.w500,
+    fontSize: 14.sp,
   );
 
   static TextStyle urbanistSemiBold20 = TextStyle(

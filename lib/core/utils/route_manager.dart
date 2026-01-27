@@ -1,5 +1,7 @@
+import 'package:animooo/core/widgets/is_loggedin.dart';
 import 'package:animooo/feature/auth/presentation/view/login_view.dart';
 import 'package:animooo/feature/auth/presentation/view/signup_view.dart';
+import 'package:animooo/feature/nav_bar/presentation/view/nav_bar_view.dart';
 import 'package:animooo/feature/new_password/presentation/view/create_new_password_view.dart';
 import 'package:animooo/feature/new_password/presentation/view/forget_password_view.dart';
 import 'package:animooo/feature/otp/presentation/view/otp_view.dart';
@@ -28,6 +30,10 @@ abstract class RouteManager {
         email = args;
       }
       widget = CreateNewPasswordView(email: email);
+    } else if (setting.name == RouteName.isLoggedIn.path) {
+      widget = IsLoggedin();
+    } else if (setting.name == RouteName.navBar.path) {
+      widget = NavBarView();
     } else {
       widget = UnKnownRoute(setting: setting);
     }
@@ -49,11 +55,14 @@ class UnKnownRoute extends StatelessWidget {
 }
 
 enum RouteName {
-  loginRoute('/'),
+  loginRoute('/Login'),
   signUpRoute('/SignUp'),
   otpRoute('/Otp'),
   forgetYourPasswordRoute('/ForgetYourPassword'),
-  createNewPasswordRoute('/CreateNewPassword');
+  createNewPasswordRoute('/CreateNewPassword'),
+
+  navBar('/NavBar'),
+  isLoggedIn('/');
 
   final String path;
   const RouteName(this.path);

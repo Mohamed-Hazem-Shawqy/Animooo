@@ -38,11 +38,13 @@ class AppSpacing {
   static double w12 = 12.w;
   static double w14 = 14.w;
   static double w16 = 16.w;
+  static double w17 = 17.w;
   static double w18 = 18.w;
   static double w20 = 20.w;
   static double w24 = 24.w;
   static double w28 = 28.w;
   static double w32 = 32.w;
+  static double w37 = 37.w;
   static double w40 = 40.w;
   static double w54 = 54.w;
 }

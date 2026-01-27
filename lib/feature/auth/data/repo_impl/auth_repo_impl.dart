@@ -1,9 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
-
-import 'package:animooo/core/database/api/dio_service.dart';
 import 'package:animooo/core/errors/failuer.dart';
 import 'package:animooo/core/database/api/end_points.dart';
+import 'package:animooo/core/extensions/getit_extenstions.dart';
 import 'package:animooo/core/services/get_it.dart';
+import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/feature/auth/data/model/user_model.dart';
 import 'package:animooo/feature/auth/data/model/user_signin_model.dart';
 import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
@@ -11,11 +12,11 @@ import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthRepoImpl implements AuthRepoDecl {
-  AuthRepoImpl();
-
+  AuthRepoImpl(this.secureStorage);
+  final FlutterSecureStorage secureStorage;
   @override
   Future<Either<Failure, SignupEntity>> userSignUp(
     SignupEntity signupEntity,
@@ -58,16 +59,25 @@ class AuthRepoImpl implements AuthRepoDecl {
       if (response.containsKey('error')) {
         return Left(ServerFailure(response['error'][0] ?? 'Unknown error'));
       }
-      final result = UserSigninModel.fromJson(response['user']);
+      final result = UserSigninModel.fromJson(response);
+      await secureStorage.write(
+        key: AppStrings.kAccessToken,
+        value: result.accessToken,
+      );
+
+      await secureStorage.write(
+        key: AppStrings.kRefreshToken,
+        value: result.refreshToken,
+      );
       return Right(result.toEntity());
     } on DioException catch (e) {
+      log(e.toString());
       return Left(ServerFailure.fromDioException(e));
     } catch (e) {
+      log(e.toString());
       return Left(ServerFailure("Unexpected error occurred ${e.toString()}"));
     }
   }
 }
 
-extension GetItExtension on GetIt {
-  DioService get dioService => this<DioService>();
-}
+

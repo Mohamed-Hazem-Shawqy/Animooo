@@ -5,6 +5,7 @@ import 'package:animooo/core/services/get_it.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_navigation.dart';
 import 'package:animooo/core/utils/route_manager.dart';
+import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/core/widgets/custom_snackbar.dart';
 import 'package:animooo/feature/otp/presentation/manager/counter_cubit/counter_cubit.dart';
 import 'package:animooo/feature/otp/domain/repos/otp_repo_decl.dart';
@@ -14,6 +15,7 @@ import 'package:animooo/feature/otp/presentation/widgets/otp_view_body.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class OtpView extends StatelessWidget {
   const OtpView({super.key, required this.email, required this.purpose});
@@ -60,7 +62,10 @@ class OtpView extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            return OtpViewBody(email: email);
+            return ModalProgressHUD(
+              inAsyncCall: state is OtpVerificationLoading,
+              progressIndicator: const CustomLoadingIndecator(),
+              child: OtpViewBody(email: email));
           },
         ),
       ),

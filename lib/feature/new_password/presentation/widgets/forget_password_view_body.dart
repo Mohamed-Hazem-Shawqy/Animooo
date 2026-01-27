@@ -2,7 +2,6 @@ import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/widgets/custom_button.dart';
-import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/core/widgets/otp_verifiay_name_and_hint_text.dart';
 import 'package:animooo/core/widgets/custom_form_text_field.dart';
 import 'package:animooo/core/widgets/filed_name.dart';
@@ -12,8 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgetPasswordViewBody extends StatefulWidget {
-  const ForgetPasswordViewBody({super.key, required this.state});
-  final ForgetPasswordState state;
+  const ForgetPasswordViewBody({super.key, });
 
   @override
   State<ForgetPasswordViewBody> createState() => _ForgetPasswordViewBodyState();
@@ -66,9 +64,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
               ),
               SizedBox(height: AppSpacing.h151),
 
-              widget.state is ForgetPasswordLoading
-                  ? CustomLoadingIndecator()
-                  : CustomButton(
+              CustomButton(
                       text: AppStrings.kSendCode.tr(),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {

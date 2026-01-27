@@ -6,7 +6,6 @@ import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/validators/empty_fileds_validator.dart';
 import 'package:animooo/core/validators/empty_img_validator.dart';
 import 'package:animooo/core/validators/phone_validator.dart';
-import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/core/widgets/custom_button.dart';
@@ -22,8 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpViewBody extends StatefulWidget {
-  const SignUpViewBody({super.key, required this.state});
-  final AuthState state;
+  const SignUpViewBody({super.key, });
 
   @override
   State<SignUpViewBody> createState() => _SignUpViewBodyState();
@@ -130,9 +128,8 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   validator: (value) => EmptyImgValidator.call(value),
                 ),
                 SizedBox(height: AppSpacing.h28),
-                widget.state is SignUpAuthLoading
-                    ? CustomLoadingIndecator()
-                    : CustomButton(
+                
+                     CustomButton(
                         text: AppStrings.kSignup.tr(),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {

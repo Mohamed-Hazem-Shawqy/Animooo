@@ -17,8 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OtpViewBody extends StatefulWidget {
-  const OtpViewBody({super.key, this.email = 'hazm05771@gmail.com'});
-  final String? email;
+  const OtpViewBody({super.key, required this.email});
+  final String email;
 
   @override
   State<OtpViewBody> createState() => _OtpViewBodyState();
@@ -62,7 +62,7 @@ class _OtpViewBodyState extends State<OtpViewBody> {
             onPressed: () {
               context.read<OtpVerificationCubit>().verifyOtp(
                 _otpController.text,
-                OtpEntity(email: widget.email ?? 'hazm05771@gmail.com'),
+                OtpEntity(email: widget.email ),
               );
             },
           ),
@@ -87,7 +87,7 @@ class _OtpViewBodyState extends State<OtpViewBody> {
                   final counterCubit = context.read<CounterCubit>();
                   if (counterCubit.initTimer == 0) {
                     context.read<SendNewOtpCubit>().sendNewOtpCode(
-                      OtpEntity(email: widget.email ?? 'hazm05771@gmail.com'),
+                      OtpEntity(email: widget.email ),
                     );
                     counterCubit.initTimer = 59;
                     counterCubit.startTimer();
