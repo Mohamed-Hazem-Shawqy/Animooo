@@ -61,6 +61,11 @@ abstract class AppFonts {
     fontWeight: FontWeight.w400,
     fontSize: 20.sp,
   );
+  static TextStyle otamaRegular12 = TextStyle(
+    fontFamily: 'Otama',
+    fontWeight: FontWeight.w400,
+    fontSize: 12.sp,
+  );
 
   /// ================= Plus Jakarta Sans =================
   static TextStyle plusJakartaMedium16 = TextStyle(
@@ -74,6 +79,11 @@ abstract class AppFonts {
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w400,
     fontSize: 12.sp,
+  );
+  static TextStyle poppinsRegular8 = TextStyle(
+    fontFamily: 'Poppins',
+    fontWeight: FontWeight.w400,
+    fontSize: 8.sp,
   );
 
   static TextStyle poppinsRegular16 = TextStyle(
@@ -149,10 +159,20 @@ abstract class AppFonts {
     fontWeight: FontWeight.w500,
     fontSize: 14.sp,
   );
+  static TextStyle urbanistMedium12 = TextStyle(
+    fontFamily: 'Urbanist',
+    fontWeight: FontWeight.w500,
+    fontSize: 12.sp,
+  );
 
   static TextStyle urbanistSemiBold20 = TextStyle(
     fontFamily: 'Urbanist',
     fontWeight: FontWeight.w600,
     fontSize: 20.sp,
+  );
+  static TextStyle urbanistSemiBold12 = TextStyle(
+    fontFamily: 'Urbanist',
+    fontWeight: FontWeight.w600,
+    fontSize: 12.sp,
   );
 }

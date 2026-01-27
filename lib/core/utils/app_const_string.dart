@@ -64,4 +64,9 @@ abstract class AppStrings {
   static const String kAnimal = "animal";
   static const String kMe = "me";
   static const String kisloggedin = "isloggedin";
+  static const String kCategories = "categories";
+  static const String kAddNewCategory = "addNewCategory";
+  static const String kSeeAll = "seeAll";
+  static const String kAllAnimal = "allAnimal";
+  static const String kAddNewAnimal = "addNewAnimal";
 }

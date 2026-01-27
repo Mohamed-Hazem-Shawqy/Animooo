@@ -44,5 +44,10 @@
     "search":"Search",
     "category":"Category",
     "animal":"Animal",
-    "me":"Me"
+    "me":"Me",
+    "categories":"Categories",
+    "addNewCategory":"Add New Category",
+    "seeAll":"See All",
+    "allAnimal ":"All Animal ",
+    "addNewAnimal":"Add New Animal"
 }

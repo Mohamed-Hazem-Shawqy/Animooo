@@ -18,6 +18,7 @@ abstract class AppColors {
   static const Color brightGreen08A33B = Color(0xFF08A33B); // #08a33b
   static const Color turquoise17A89E = Color(0xFF17A89E); // #17a89e
   static const Color primary04332D = Color(0xFF04332D);
+  static const Color primary155F45 = Color(0xFF155F45);
 
   // Light shades
   static const Color whiteFFFFFF = Color(0xFFFFFFFF); // #ffffff
