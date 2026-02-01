@@ -1,5 +1,9 @@
+import 'package:animooo/feature/add_new_animal/presentation/view/add_new_animal_view.dart';
+import 'package:animooo/feature/category/presentation/view/add_new_category_view.dart';
 import 'package:animooo/feature/home/presentation/view/home_view.dart';
 import 'package:animooo/feature/nav_bar/presentation/widgets/nav_bar_view_body.dart';
+import 'package:animooo/feature/profile/presentation/view/profile_view.dart';
+import 'package:animooo/feature/search/presentation/view/search_view.dart';
 import 'package:flutter/material.dart';
 
 class NavBarView extends StatefulWidget {
@@ -13,10 +17,10 @@ class _NavBarViewState extends State<NavBarView> {
   int _activeIndex = 0;
   List<Widget> pages = [
     HomeView(),
-    SizedBox(child: Center(child: Text("2"))),
-    SizedBox(),
-    SizedBox(),
-    SizedBox(),
+    SearchView(),
+    AddNewCategoryView(),
+    AddNewAnimalView(),
+    ProfileView(),
   ];
 
   @override

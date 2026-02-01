@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SeeAllButton extends StatelessWidget {
-  const SeeAllButton({super.key});
+  const SeeAllButton({super.key, this.onPressed});
 
+final void Function()? onPressed;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +24,7 @@ class SeeAllButton extends StatelessWidget {
             ),
             backgroundColor: AppColors.primary155F45,
           ),
-          onPressed: () {},
+          onPressed:onPressed,
           child: Text(
             AppStrings.kSeeAll.tr(),
             style: AppFonts.poppinsRegular8.copyWith(

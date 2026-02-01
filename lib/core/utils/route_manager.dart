@@ -1,10 +1,14 @@
 import 'package:animooo/core/widgets/is_loggedin.dart';
+import 'package:animooo/feature/add_new_animal/presentation/view/add_new_animal_view.dart';
 import 'package:animooo/feature/auth/presentation/view/login_view.dart';
 import 'package:animooo/feature/auth/presentation/view/signup_view.dart';
+import 'package:animooo/feature/category/presentation/view/add_new_category_view.dart';
 import 'package:animooo/feature/nav_bar/presentation/view/nav_bar_view.dart';
 import 'package:animooo/feature/new_password/presentation/view/create_new_password_view.dart';
 import 'package:animooo/feature/new_password/presentation/view/forget_password_view.dart';
 import 'package:animooo/feature/otp/presentation/view/otp_view.dart';
+import 'package:animooo/feature/profile/presentation/view/profile_view.dart';
+import 'package:animooo/feature/search/presentation/view/search_view.dart';
 import 'package:flutter/material.dart';
 
 abstract class RouteManager {
@@ -34,6 +38,14 @@ abstract class RouteManager {
       widget = IsLoggedin();
     } else if (setting.name == RouteName.navBar.path) {
       widget = NavBarView();
+    } else if (setting.name == RouteName.addNewCategory.path) {
+      widget = AddNewCategoryView();
+    } else if (setting.name == RouteName.addNewAnimal.path) {
+      widget = AddNewAnimalView();
+    } else if (setting.name == RouteName.profile.path) {
+      widget = ProfileView();
+    } else if (setting.name == RouteName.search.path) {
+      widget = SearchView();
     } else {
       widget = UnKnownRoute(setting: setting);
     }
@@ -62,7 +74,11 @@ enum RouteName {
   createNewPasswordRoute('/CreateNewPassword'),
 
   navBar('/NavBar'),
-  isLoggedIn('/');
+  isLoggedIn('/'),
+  addNewCategory('/AddNewCategory'),
+  addNewAnimal('/AddNewAnimal'),
+  profile('/Profile'),
+  search('/Search');
 
   final String path;
   const RouteName(this.path);

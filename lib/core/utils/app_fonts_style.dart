@@ -175,4 +175,14 @@ abstract class AppFonts {
     fontWeight: FontWeight.w600,
     fontSize: 12.sp,
   );
+  static TextStyle urbanistSemiBold10 = TextStyle(
+    fontFamily: 'Urbanist',
+    fontWeight: FontWeight.w600,
+    fontSize: 10.sp,
+  );
+  static TextStyle urbanistSemiBold28 = TextStyle(
+    fontFamily: 'Urbanist',
+    fontWeight: FontWeight.w600,
+    fontSize: 28.sp,
+  );
 }

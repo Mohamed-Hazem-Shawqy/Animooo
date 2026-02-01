@@ -8,4 +8,7 @@ abstract class EndPoints {
   static const forgetPassword = '/api/forget_password';
   static const createNewPassword = '/api/create_new_possword';
   static const generateNewAccessToken = '/api/generateAccessToken';
+  static const createNewCategory = '/api/createNewCategory';
+  static const getAllCategory = '/api/allCategories';
+  static const addNewAnimal = '/api/addNewAnimal';
 }

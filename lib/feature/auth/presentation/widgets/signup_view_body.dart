@@ -14,14 +14,14 @@ import 'package:animooo/core/widgets/filed_name.dart';
 import 'package:animooo/feature/auth/presentation/widgets/logo_and_name.dart';
 import 'package:animooo/core/widgets/password_and_confirm_password.dart';
 import 'package:animooo/feature/auth/presentation/widgets/signup_footer.dart';
-import 'package:animooo/feature/auth/presentation/widgets/upload_profile_image.dart';
+import 'package:animooo/core/widgets/upload_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpViewBody extends StatefulWidget {
-  const SignUpViewBody({super.key, });
+  const SignUpViewBody({super.key});
 
   @override
   State<SignUpViewBody> createState() => _SignUpViewBodyState();
@@ -124,31 +124,32 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   filedName: AppStrings.kPassword.tr(),
                 ),
                 SizedBox(height: AppSpacing.h16),
-                UploadProfileImage(
+                UploadImage(
+                  filedName: AppStrings.kUploadImageForProfile.tr(),
                   validator: (value) => EmptyImgValidator.call(value),
                 ),
                 SizedBox(height: AppSpacing.h28),
-                
-                     CustomButton(
-                        text: AppStrings.kSignup.tr(),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            context.read<AuthCubit>().userSignUp(
-                              userEntity: SignupEntity(
-                                firstName: _firstNameController.text,
-                                lastName: _lastNameController.text,
-                                email: _emailController.text,
-                                phone: _phoneController.text,
-                                image: ImagePickerClass.fileImage!.path,
-                              ),
-                              password: _passwordController.text,
-                            );
-                          } else {
-                            _autoValidateMode = AutovalidateMode.always;
-                            setState(() {});
-                          }
-                        },
-                      ),
+
+                CustomButton(
+                  text: AppStrings.kSignup.tr(),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      context.read<AuthCubit>().userSignUp(
+                        userEntity: SignupEntity(
+                          firstName: _firstNameController.text,
+                          lastName: _lastNameController.text,
+                          email: _emailController.text,
+                          phone: _phoneController.text,
+                          image: ImagePickerClass.fileImage!.path,
+                        ),
+                        password: _passwordController.text,
+                      );
+                    } else {
+                      _autoValidateMode = AutovalidateMode.always;
+                      setState(() {});
+                    }
+                  },
+                ),
                 SizedBox(height: AppSpacing.h8),
                 const SignUpFooter(),
                 SizedBox(height: AppSpacing.h20),

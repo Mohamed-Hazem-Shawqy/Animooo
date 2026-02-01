@@ -13,14 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-class UploadProfileImage extends FormField<File?> {
-  UploadProfileImage({super.key, super.validator})
+class UploadImage extends FormField<File?> {
+  UploadImage({super.key, super.validator, required String filedName})
+
     : super(
         builder: (FormFieldState<File?> state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FieldName(filedName: AppStrings.kUploadImageForProfile.tr()),
+              FieldName(filedName: filedName),
               SizedBox(height: AppSpacing.h8),
               DottedBorder(
                 options: RectDottedBorderOptions(

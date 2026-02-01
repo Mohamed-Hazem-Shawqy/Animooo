@@ -69,4 +69,22 @@ abstract class AppStrings {
   static const String kSeeAll = "seeAll";
   static const String kAllAnimal = "allAnimal";
   static const String kAddNewAnimal = "addNewAnimal";
+  static const String kCreateNewCategory = "createNewCategory";
+  static const String kPublic = "public";
+  static const String kCategoryName = "CategoryName";
+  static const String kEnteryourCategoryName = "EnteryourCategoryName";
+  static const String kCategoryDescription = "CategoryDescription";
+  static const String kEnteryourDescription = "EnteryourDescription";
+  static const String kUploadImageForYourCateogry =
+      "UploadImageForYourCateogry";
+  static const String kSave = "Save";
+  static const String kAnimalName = "AnimalName";
+  static const String kAnimalDescription = "AnimalDescription";
+  static const String kUploadImageForYourAnimal = "UploadImageForYourAnimal";
+  static const String kEnteryourAnimalName = "EnteryourAnimalName";
+  static const String kAnimalPrice = "AnimalPrice";
+  static const String kEnterYourAnimalPrice = "EnterYourAnimalPrice";
+  static const String kProfileDetails = "ProfileDetails";
+  static const String kNoCategoryFound = "NoCategoryFound";
+  static const String kNoAnimalFound = "NoAnimalFound";
 }

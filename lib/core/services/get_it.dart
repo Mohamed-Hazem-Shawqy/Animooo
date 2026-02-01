@@ -2,6 +2,8 @@ import 'package:animooo/core/database/api/dio_service.dart';
 import 'package:animooo/core/singletoon/shared_pref_singletoon.dart';
 import 'package:animooo/feature/auth/data/repo_impl/auth_repo_impl.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
+import 'package:animooo/feature/category/data/repos/category_repo_impl.dart';
+import 'package:animooo/feature/category/domain/repos/category_repo_decl.dart';
 import 'package:animooo/feature/new_password/data/repos/forget_and_create_new_password_impl.dart';
 import 'package:animooo/feature/new_password/domain/repos/forget_and_create_new_password_decl.dart';
 import 'package:animooo/feature/otp/data/repos/otp_repo_impl.dart';
@@ -40,4 +42,5 @@ Future<void> setUpGetit() async {
   final sharedPrefs = await SharedPreferences.getInstance();
 
   getit.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+  getit.registerLazySingleton<CategoryRepoDecl>(() => CategoryRepoImpl());
 }
