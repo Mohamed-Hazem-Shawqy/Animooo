@@ -2,7 +2,9 @@ import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_images.dart';
 import 'package:animooo/core/utils/app_padding.dart';
+import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,6 +17,7 @@ class NameAndPuplic extends StatelessWidget {
     this.height = 22,
     required this.style,
   });
+
   final String text;
   final double radius;
   final double width;
@@ -33,9 +36,16 @@ class NameAndPuplic extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Ahmed El-said', style: style),
-            SizedBox(width: AppSpacing.w4),
-
+            BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, state) {
+                if (state is SignInAuthSuccess) {
+                  final userName = state.signinEntity.firstName;
+                  return Text('$userName', style: style);
+                }
+                return const SizedBox();
+              },
+            ),
+            SizedBox(height: AppSpacing.w4),
             InfoSmallContainer(width: width, height: height, text: text),
           ],
         ),

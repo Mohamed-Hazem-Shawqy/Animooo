@@ -1,5 +1,8 @@
 import 'package:animooo/core/database/api/dio_service.dart';
+import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/singletoon/shared_pref_singletoon.dart';
+import 'package:animooo/feature/add_new_animal/data/repos/animal_repo_impl.dart';
+import 'package:animooo/feature/add_new_animal/domain/repos/animal_repo_decl.dart';
 import 'package:animooo/feature/auth/data/repo_impl/auth_repo_impl.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
 import 'package:animooo/feature/category/data/repos/category_repo_impl.dart';
@@ -43,4 +46,20 @@ Future<void> setUpGetit() async {
 
   getit.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
   getit.registerLazySingleton<CategoryRepoDecl>(() => CategoryRepoImpl());
+  getit.registerLazySingleton<AnimalRepoDecl>(() => AnimalRepoImpl());
+  getit.registerLazySingleton<HomeController>(() => HomeController());
 }
+
+class HomeController {
+  final ValueNotifier<List<GetAllAnimalEntity>> animalsNotifier =
+      ValueNotifier<List<GetAllAnimalEntity>>([]);
+
+  void updateAnimals(List<GetAllAnimalEntity> newList) {
+    animalsNotifier.value = List.from(newList);
+  }
+
+  void addAnimal(GetAllAnimalEntity newAnimal) {
+    animalsNotifier.value = [...animalsNotifier.value, newAnimal];
+  }
+}
+

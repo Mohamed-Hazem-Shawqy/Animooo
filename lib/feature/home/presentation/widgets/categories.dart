@@ -1,15 +1,20 @@
+import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_padding.dart';
-import 'package:animooo/feature/category/domain/entities/get_all_category_entity.dart';
+import 'package:animooo/core/entity/get_all_category_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Categories extends StatelessWidget {
-  const Categories({super.key, required this.category});
+  const Categories({super.key, required this.category, required this.animals});
   final GetAllCategoryEntity category;
+  final List<GetAllAnimalEntity> animals;
   @override
   Widget build(BuildContext context) {
+    final allAnimalCount = animals
+        .where((animal) => animal.categoryid == category.id)
+        .toList();
     return SizedBox(
       height: AppSpacing.h100,
       child: Padding(
@@ -34,7 +39,7 @@ class Categories extends StatelessWidget {
                             radius: 10.r,
                             child: FittedBox(
                               child: Text(
-                                '10',
+                                allAnimalCount.length.toString(),
                                 style: AppFonts.urbanistMedium12.copyWith(
                                   color: AppColors.whiteFFFFFF,
                                 ),

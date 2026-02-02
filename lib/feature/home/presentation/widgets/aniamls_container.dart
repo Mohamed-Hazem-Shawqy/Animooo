@@ -1,13 +1,13 @@
+import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
-import 'package:animooo/core/utils/app_images.dart';
 import 'package:animooo/core/utils/app_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AniamlsContainer extends StatelessWidget {
-  const AniamlsContainer({super.key});
-
+  const AniamlsContainer({super.key, required this.animal});
+final GetAllAnimalEntity animal;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +15,6 @@ class AniamlsContainer extends StatelessWidget {
 
       margin: EdgeInsets.symmetric(horizontal: AppSpacing.w16),
       decoration: BoxDecoration(
-        // color: AppColors.lightGreyD9D9D9,
         color: AppColors.steelWhiteF6F6F6,
 
         borderRadius: BorderRadius.circular(8.r),
@@ -31,7 +30,7 @@ class AniamlsContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Dog name',
+                      animal.name,
                       style: AppFonts.urbanistSemiBold12.copyWith(
                         color: AppColors.black000000,
                       ),
@@ -47,7 +46,7 @@ class AniamlsContainer extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '1000\$',
+                  '${animal.price}\$',
                   style: AppFonts.urbanistSemiBold12.copyWith(
                     color: AppColors.primary04332D,
                   ),
@@ -60,16 +59,14 @@ class AniamlsContainer extends StatelessWidget {
 
           SizedBox(
             width: double.infinity,
-            child: Image.asset(Assets.imagesDogPng, fit: BoxFit.cover),
+            child: Image.network(animal.image, fit: BoxFit.cover),
           ),
 
           /// Description
           Padding(
             padding: EdgeInsets.all(AppSpacing.w10),
             child: Text(
-              'I found this sweet dog and am looking for a loving home for them. '
-              'If you’re ready to welcome a new furry friend into your life, '
-              'this adorable pup is waiting to bring joy and...',
+              animal.description,
               style: AppFonts.urbanistRegular12.copyWith(
                 color: AppColors.black000000,
               ),

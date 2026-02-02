@@ -3,6 +3,7 @@ import 'package:animooo/core/services/get_it.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/widgets/custom_loading_indecator.dart';
 import 'package:animooo/core/widgets/custom_snackbar.dart';
+
 import 'package:animooo/feature/category/domain/repos/category_repo_decl.dart';
 import 'package:animooo/feature/category/presentation/manager/category_cubit/create_new_category_cubit.dart';
 import 'package:animooo/feature/category/presentation/widget/add_new_category_view_body.dart';
@@ -16,8 +17,13 @@ class AddNewCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CreateNewCategoryCubit(getit<CategoryRepoDecl>()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              CreateNewCategoryCubit(getit<CategoryRepoDecl>()),
+        ),
+      ],
       child: Scaffold(
         appBar: newCategoryAndAnimalAppBar(AppStrings.kAddNewCategory.tr()),
         body: SafeArea(

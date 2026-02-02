@@ -1,4 +1,4 @@
-import 'package:animooo/feature/category/domain/entities/get_all_category_entity.dart';
+import 'package:animooo/core/entity/get_all_category_entity.dart';
 import 'package:animooo/feature/category/domain/repos/category_repo_decl.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

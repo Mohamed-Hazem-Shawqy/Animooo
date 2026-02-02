@@ -11,4 +11,5 @@ abstract class EndPoints {
   static const createNewCategory = '/api/createNewCategory';
   static const getAllCategory = '/api/allCategories';
   static const addNewAnimal = '/api/addNewAnimal';
+  static const getAllAnimal = '/api/allAnimal';
 }

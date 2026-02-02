@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNewCategoryViewBody extends StatefulWidget {
-  const AddNewCategoryViewBody({super.key});
+  const AddNewCategoryViewBody({super.key, });
 
   @override
   State<AddNewCategoryViewBody> createState() => _AddNewCategoryViewBodyState();
