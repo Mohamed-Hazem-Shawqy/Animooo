@@ -1,5 +1,6 @@
 import 'package:animooo/core/database/api/dio_service.dart';
 import 'package:animooo/core/entity/get_all_animal_entity.dart';
+import 'package:animooo/core/entity/get_all_category_entity.dart';
 import 'package:animooo/core/singletoon/shared_pref_singletoon.dart';
 import 'package:animooo/feature/add_new_animal/data/repos/animal_repo_impl.dart';
 import 'package:animooo/feature/add_new_animal/domain/repos/animal_repo_decl.dart';
@@ -51,15 +52,21 @@ Future<void> setUpGetit() async {
 }
 
 class HomeController {
-  final ValueNotifier<List<GetAllAnimalEntity>> animalsNotifier =
+  final ValueNotifier<List<GetAllCategoryEntity>> allCategory =
+      ValueNotifier<List<GetAllCategoryEntity>>([]);
+  final ValueNotifier<List<GetAllAnimalEntity>> allAnimalsNotifier =
       ValueNotifier<List<GetAllAnimalEntity>>([]);
-
-  void updateAnimals(List<GetAllAnimalEntity> newList) {
-    animalsNotifier.value = List.from(newList);
+void updatedCategories(List<GetAllCategoryEntity> categories) {
+  allCategory.value=List.from(categories);
+}
+void addCategory(GetAllCategoryEntity newCategory) {
+  allCategory.value = [...allCategory.value, newCategory];
+}
+  void updatedAnimals(List<GetAllAnimalEntity> animals) {
+    allAnimalsNotifier.value = List.from(animals);
   }
 
-  void addAnimal(GetAllAnimalEntity newAnimal) {
-    animalsNotifier.value = [...animalsNotifier.value, newAnimal];
+  void addAnimal(GetAllAnimalEntity newanimal) {
+    allAnimalsNotifier.value = [...allAnimalsNotifier.value, newanimal];
   }
 }
-

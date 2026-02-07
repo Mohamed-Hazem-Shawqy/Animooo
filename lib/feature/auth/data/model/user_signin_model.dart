@@ -1,4 +1,4 @@
-import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
+import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
 
 class UserSigninModel {
   final String firstName;
@@ -39,8 +39,8 @@ class UserSigninModel {
     };
   }
 
-  SigninEntity toEntity() {
-    return SigninEntity(
+  UserEntity toEntity() {
+    return UserEntity(
       email: email,
       firstName: firstName,
       lastName: lastName,
@@ -49,9 +49,9 @@ class UserSigninModel {
     );
   }
 
-  factory UserSigninModel.fromEntity(SigninEntity signinEntity) {
+  factory UserSigninModel.fromEntity(UserEntity signinEntity) {
     return UserSigninModel(
-      email: signinEntity.email,
+      email: signinEntity.email??"",
       firstName: signinEntity.firstName ?? '',
       lastName: signinEntity.lastName ?? '',
       phone: signinEntity.phone ?? '',

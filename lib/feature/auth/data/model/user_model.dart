@@ -29,19 +29,19 @@ class UserResponseModel {
       _$UserResponseModelFromJson(json);
   Map<String, dynamic> toJson() => _$UserResponseModelToJson(this);
 
-  factory UserResponseModel.fromEntity(SignupEntity entity) {
+  factory UserResponseModel.fromEntity(UserEntity entity) {
     return UserResponseModel(
-      firstName: entity.firstName,
-      lastName: entity.lastName,
-      email: entity.email,
-      phone: entity.phone,
+      firstName: entity.firstName??'',
+      lastName: entity.lastName??"",
+      email: entity.email??'',
+      phone: entity.phone??"",
 
-      image: entity.image,
+      image: entity.image??"",
     );
   }
 
-  SignupEntity toEntity() {
-    return SignupEntity(
+  UserEntity toEntity() {
+    return UserEntity(
       firstName: firstName,
       lastName: lastName,
       email: email,

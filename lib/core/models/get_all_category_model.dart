@@ -26,7 +26,7 @@ class GetAllCategoryModel {
       name: entity.name,
       image: entity.image,
       description: entity.description,
-      id: entity.id,
+      id: entity.id??0,
     );
   }
 

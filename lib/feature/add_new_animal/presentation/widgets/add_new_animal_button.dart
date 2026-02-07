@@ -2,6 +2,7 @@ import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/entity/get_all_category_entity.dart';
 import 'package:animooo/core/helper_function/get_category_id_by_name.dart';
 import 'package:animooo/core/services/get_it.dart';
+
 import 'package:animooo/core/services/pick_image.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/widgets/custom_button.dart';
@@ -50,22 +51,21 @@ class AddNewAnimalButton extends StatelessWidget {
             ),
             categoryId,
           );
-          // فرّغ الحقول
+
+          final newAnimal = GetAllAnimalEntity(
+            name: aniamlNameController.text,
+            description: descriptionController.text,
+            price: double.parse(animalPrice.text),
+            image: ImagePickerClass.fileImage!.path,
+            categoryid: categoryId,
+          );
+
+          getit<HomeController>().addAnimal(newAnimal);
           aniamlNameController.clear();
           descriptionController.clear();
           animalPrice.clear();
           categoryName.clear();
           _formKey.currentState?.reset();
-
-          // أضف الحيوان الجديد إلى الـ HomeController
-          final newAnimal = GetAllAnimalEntity(
-            name: aniamlNameController.text,
-            description: descriptionController.text,
-            image: ImagePickerClass.fileImage!.path,
-            categoryid: categoryId,
-            price: double.parse(animalPrice.text),
-          );
-          getit<HomeController>().addAnimal(newAnimal);
         }
       },
     );

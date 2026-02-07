@@ -15,95 +15,96 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeViewBody extends StatelessWidget {
-  const HomeViewBody({
-    super.key,
-    required this.categories,
-    required this.animals,
-  });
-  final List<GetAllCategoryEntity> categories;
-  final List<GetAllAnimalEntity> animals;
+  const HomeViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ValueListenableBuilder<List<GetAllAnimalEntity>>(
-        valueListenable: getit<HomeController>().animalsNotifier,
-        builder: (context, value, child) {
-          return CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h4)),
-              const SliverToBoxAdapter(child: HeloInApp()),
-              SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h24)),
-          
-              SliverToBoxAdapter(
-                child: CategoryAndAddnewCategory(
-                  length: categories.length,
-                  text: AppStrings.kAddNewCategory.tr(),
-                  bigText: AppStrings.kCategories.tr(),
-                ),
-              ),
-              SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h22)),
-          
-              SliverToBoxAdapter(
-                child: BlocBuilder<SellAllButtonCubit, SellAllButtonState>(
-                  builder: (context, state) {
-                    return Row(
-                      children: [
-                        Expanded(
-                          child: CategoriesListView(
-                            animals: animals,
-                            categories: categories,
-                            clickOnSeeAll: context
-                                .read<SellAllButtonCubit>()
-                                .clickOnSeeAll,
-                          ),
-                        ),
-                        Visibility(
-                          visible: !context
-                              .read<SellAllButtonCubit>()
-                              .clickOnSeeAll,
-                          child: SeeAllButton(
-                            onPressed: context
-                                .read<SellAllButtonCubit>()
-                                .onSeeAllPressed,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
-              SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h13)),
-          
-              BlocBuilder<CheckerCubit, CheckerState>(
-                builder: (context, state) {
-                  final animalsToShow = state is CheckerFilterd
-                      ? state.filterdAnimals
-                      : animals;
-          
-                  return SliverMainAxisGroup(
-                    slivers: [
-                      SliverToBoxAdapter(
-                        child: Column(
+      child: ValueListenableBuilder<List<GetAllCategoryEntity>>(
+        valueListenable: getit<HomeController>().allCategory,
+        builder: (context, currentCategory, child) {
+          return ValueListenableBuilder<List<GetAllAnimalEntity>>(
+            valueListenable: getit<HomeController>().allAnimalsNotifier,
+            builder: (context, currentAinmals, child) {
+              return CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h4)),
+                  const SliverToBoxAdapter(child: HeloInApp()),
+                  SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h24)),
+
+                  SliverToBoxAdapter(
+                    child: CategoryAndAddnewCategory(
+                      length: currentCategory.length,
+                      text: AppStrings.kAddNewCategory.tr(),
+                      bigText: AppStrings.kCategories.tr(),
+                    ),
+                  ),
+                  SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h22)),
+
+                  SliverToBoxAdapter(
+                    child: BlocBuilder<SellAllButtonCubit, SellAllButtonState>(
+                      builder: (context, state) {
+                        return Row(
                           children: [
-                            CategoryAndAddnewCategory(
-                              length: animalsToShow.length,
-                              text: AppStrings.kAddNewAnimal.tr(),
-                              bigText: AppStrings.kAllAnimal.tr(),
+                            Expanded(
+                              child: CategoriesListView(
+                                animals: currentAinmals,
+                                categories: currentCategory,
+                                clickOnSeeAll: context
+                                    .read<SellAllButtonCubit>()
+                                    .clickOnSeeAll,
+                              ),
                             ),
-                            SizedBox(height: AppSpacing.h13),
+                            Visibility(
+                              visible:
+                                  !context
+                                      .read<SellAllButtonCubit>()
+                                      .clickOnSeeAll &&
+                                  currentCategory.isNotEmpty,
+                              child: SeeAllButton(
+                                onPressed: context
+                                    .read<SellAllButtonCubit>()
+                                    .onSeeAllPressed,
+                              ),
+                            ),
                           ],
-                        ),
-                      ),
-          
-                      AnimalsContinerSliverListView(animals: animalsToShow),
-                    ],
-                  );
-                },
-              ),
-            ],
+                        );
+                      },
+                    ),
+                  ),
+                  SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h13)),
+
+                  BlocBuilder<CheckerCubit, CheckerState>(
+                    builder: (context, state) {
+                      final animalsToShow = state is CheckerFilterd
+                          ? state.filterdAnimals
+                          : currentAinmals;
+
+                      return SliverMainAxisGroup(
+                        slivers: [
+                          SliverToBoxAdapter(
+                            child: Column(
+                              children: [
+                                CategoryAndAddnewCategory(
+                                  length: animalsToShow.length,
+                                  text: AppStrings.kAddNewAnimal.tr(),
+                                  bigText: AppStrings.kAllAnimal.tr(),
+                                ),
+                                SizedBox(height: AppSpacing.h13),
+                              ],
+                            ),
+                          ),
+
+                          AnimalsContinerSliverListView(animals: animalsToShow),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              );
+            },
           );
-        }
+        },
       ),
     );
   }

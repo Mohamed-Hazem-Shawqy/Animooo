@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_images.dart';
@@ -38,11 +40,16 @@ class NameAndPuplic extends StatelessWidget {
           children: [
             BlocBuilder<AuthCubit, AuthState>(
               builder: (context, state) {
-                if (state is SignInAuthSuccess) {
-                  final userName = state.signinEntity.firstName;
-                  return Text('$userName', style: style);
-                }
-                return const SizedBox();
+                log("nameAndPublic auth state:$state");
+
+                log(
+                  "firstName: ${context.read<AuthCubit>().currenUser?.firstName ?? 'Guest'}",
+                );
+                final userFirstName =
+                    context.read<AuthCubit>().currenUser?.firstName ?? 'Guest';
+                final userLastName =
+                    context.read<AuthCubit>().currenUser?.lastName ?? '';
+                return Text('$userFirstName $userLastName', style: style);
               },
             ),
             SizedBox(height: AppSpacing.w4),

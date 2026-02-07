@@ -4,7 +4,7 @@ import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/utils/route_manager.dart';
 import 'package:animooo/core/validators/email_validator.dart';
 import 'package:animooo/core/validators/password_validator.dart';
-import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
+import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:animooo/core/widgets/custom_button.dart';
 import 'package:animooo/core/widgets/custom_form_text_field.dart';
@@ -83,7 +83,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       context.read<AuthCubit>().userSignIn(
-                        userEntity: SigninEntity(email: _emailController.text),
+                        userEntity: UserEntity(email: _emailController.text),
                         password: _passwordController.text,
                       );
                     } else {

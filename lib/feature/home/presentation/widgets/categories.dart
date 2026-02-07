@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
@@ -29,7 +31,11 @@ class Categories extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 31.r,
-                          backgroundImage: NetworkImage(category.image),
+                          backgroundImage:
+                              category.image.startsWith('/') ||
+                                  category.image.startsWith('file')
+                              ? FileImage(File(category.image))
+                              : NetworkImage(category.image),
                         ),
                         Positioned(
                           top: 0,

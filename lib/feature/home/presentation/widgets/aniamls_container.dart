@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
 import 'package:animooo/core/utils/app_padding.dart';
+import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AniamlsContainer extends StatelessWidget {
   const AniamlsContainer({super.key, required this.animal});
-final GetAllAnimalEntity animal;
+  final GetAllAnimalEntity animal;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,11 +40,15 @@ final GetAllAnimalEntity animal;
                       ),
                     ),
                     SizedBox(height: AppSpacing.h4),
-                    Text(
-                      'create by Ahmed El-said',
-                      style: AppFonts.urbanistRegular12.copyWith(
-                        color: AppColors.greyish999999,
-                      ),
+                    BlocBuilder<AuthCubit, AuthState>(
+                      builder: (context, state) {
+                        return Text(
+                          'create by ${context.read<AuthCubit>().currenUser?.firstName ?? ''} ${context.read<AuthCubit>().currenUser?.lastName ?? ''}',
+                          style: AppFonts.urbanistRegular12.copyWith(
+                            color: AppColors.greyish999999,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -59,7 +67,10 @@ final GetAllAnimalEntity animal;
 
           SizedBox(
             width: double.infinity,
-            child: Image.network(animal.image, fit: BoxFit.cover),
+            child:
+                animal.image.startsWith('file') || animal.image.startsWith('/')
+                ? Image.file(File(animal.image), fit: BoxFit.cover)
+                : Image.network(animal.image, fit: BoxFit.cover),
           ),
 
           /// Description

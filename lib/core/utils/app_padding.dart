@@ -59,4 +59,6 @@ class AppSpacing {
   static double w54 = 54.w;
   static double w75 = 75.w;
   static double w100 = 100.w;
+  static double w150 = 150.w;
+  static double w200 = 200.w;
 }

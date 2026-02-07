@@ -1,10 +1,12 @@
 import 'package:animooo/core/entity/get_all_animal_entity.dart';
+import 'package:animooo/core/utils/app_images.dart';
 import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/entity/get_all_category_entity.dart';
 import 'package:animooo/feature/home/presentation/manager/checker_cubit/checker_cubit.dart';
 import 'package:animooo/feature/home/presentation/widgets/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class CategoriesListView extends StatelessWidget {
   const CategoriesListView({
@@ -25,14 +27,28 @@ class CategoriesListView extends StatelessWidget {
         itemBuilder: (context, index) => GestureDetector(
           onTap: () {
             context.read<CheckerCubit>().filterByCategory(
-              categories[index].id,
+              categories[index].id ?? 0,
               animals,
             );
           },
-          child: Categories(category: categories[index], animals: animals),
+          child: categories.isEmpty
+              ? Padding(
+                  padding: EdgeInsets.symmetric(horizontal: AppSpacing.w150),
+                  child: Column(
+                    children: [
+                      SvgPicture.asset(Assets.imagesNoitemSvg),
+                      Text('No categories yet'),
+                    ],
+                  ),
+                )
+              : Categories(category: categories[index], animals: animals),
         ),
 
-        itemCount: clickOnSeeAll ? categories.length : 3,
+        itemCount: categories.isEmpty
+            ? 1
+            : clickOnSeeAll
+            ? categories.length
+            : 3,
       ),
     );
   }

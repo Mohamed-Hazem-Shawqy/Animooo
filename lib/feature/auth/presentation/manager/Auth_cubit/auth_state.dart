@@ -6,12 +6,12 @@ sealed class AuthState extends Equatable {
   List<Object> get props => [];
 }
 
-final class SignUpAuthInitial extends AuthState {}
+final class AuthInitial extends AuthState {}
 
 final class SignUpAuthLoading extends AuthState {}
 
 final class SignUpAuthSuccess extends AuthState {
-  final SignupEntity signupEntity;
+  final UserEntity signupEntity;
   const SignUpAuthSuccess(this.signupEntity);
   @override
   List<Object> get props => [signupEntity];
@@ -23,12 +23,11 @@ final class SignUpAuthFailure extends AuthState {
   @override
   List<Object> get props => [errMessage];
 }
-final class SigInAuthInitial extends AuthState {}
 
 final class SignInAuthLoading extends AuthState {}
 
 final class SignInAuthSuccess extends AuthState {
-  final SigninEntity signinEntity;
+  final UserEntity signinEntity;
   const SignInAuthSuccess(this.signinEntity);
   @override
   List<Object> get props => [signinEntity];

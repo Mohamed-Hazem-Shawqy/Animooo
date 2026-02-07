@@ -135,7 +135,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       context.read<AuthCubit>().userSignUp(
-                        userEntity: SignupEntity(
+                        userEntity: UserEntity(
                           firstName: _firstNameController.text,
                           lastName: _lastNameController.text,
                           email: _emailController.text,

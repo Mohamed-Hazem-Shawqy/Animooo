@@ -29,9 +29,19 @@ class HomeView extends StatelessWidget {
         ),
       ],
       child: Scaffold(
-        body: BlocBuilder<GetAllCategoryCubit, GetAllCategoryState>(
+        body: BlocConsumer<GetAllCategoryCubit, GetAllCategoryState>(
+          listener: (context, state) {
+            if (state is GetAllCategorySuccess) {
+              getit<HomeController>().updatedCategories(state.categories);
+            }
+          },
           builder: (context, categoryState) {
-            return BlocBuilder<GetAllAnimalsCubit, GetAllAnimalsState>(
+            return BlocConsumer<GetAllAnimalsCubit, GetAllAnimalsState>(
+              listener: (context, state) {
+                if (state is GetAllAnimalsSuccess) {
+                  getit<HomeController>().updatedAnimals(state.animals);
+                }
+              },
               builder: (context, animalState) {
                 if (categoryState is GetAllCategoryLoading ||
                     animalState is GetAllAnimalsLoading) {
@@ -49,8 +59,6 @@ class HomeView extends StatelessWidget {
                 if (categoryState is GetAllCategorySuccess &&
                     animalState is GetAllAnimalsSuccess) {
                   return HomeViewBody(
-                    categories: categoryState.categories,
-                    animals: animalState.animals,
                   );
                 }
 

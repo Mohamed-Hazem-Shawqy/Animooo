@@ -7,7 +7,6 @@ import 'package:animooo/core/services/get_it.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/feature/auth/data/model/user_model.dart';
 import 'package:animooo/feature/auth/data/model/user_signin_model.dart';
-import 'package:animooo/feature/auth/domain/entities/signin_entity.dart';
 import 'package:animooo/feature/auth/domain/entities/signup_entity.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
 import 'package:dartz/dartz.dart';
@@ -18,18 +17,18 @@ class AuthRepoImpl implements AuthRepoDecl {
   AuthRepoImpl(this.secureStorage);
   final FlutterSecureStorage secureStorage;
   @override
-  Future<Either<Failure, SignupEntity>> userSignUp(
-    SignupEntity signupEntity,
+  Future<Either<Failure, UserEntity>> userSignUp(
+    UserEntity signupEntity,
     String password,
   ) async {
     try {
       final UserRequestModel userModel = UserRequestModel(
-        firstName: signupEntity.firstName,
-        lastName: signupEntity.lastName,
-        email: signupEntity.email,
-        phone: signupEntity.phone,
+        firstName: signupEntity.firstName??"",
+        lastName: signupEntity.lastName??"",
+        email: signupEntity.email??"",
+        phone: signupEntity.phone??"",
 
-        image: File(signupEntity.image),
+        image: File(signupEntity.image??""),
         password: password,
       );
 
@@ -47,8 +46,8 @@ class AuthRepoImpl implements AuthRepoDecl {
   }
 
   @override
-  Future<Either<Failure, SigninEntity>> userSignIn(
-    SigninEntity signinEntity,
+  Future<Either<Failure, UserEntity>> userSignIn(
+    UserEntity signinEntity,
     String password,
   ) async {
     try {
@@ -79,5 +78,3 @@ class AuthRepoImpl implements AuthRepoDecl {
     }
   }
 }
-
-

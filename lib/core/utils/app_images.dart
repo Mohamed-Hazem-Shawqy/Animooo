@@ -34,9 +34,17 @@ class Assets {
   /// assets/images/logoSvg.svg
   static const String imagesLogoSvg = "assets/images/logoSvg.svg";
 
+  /// Assets for imagesNoCategoryOritemImageSvg
+  /// assets/images/noCategoryOritemImageSvg.svg
+  static const String imagesNoCategoryOritemImageSvg = "assets/images/noCategoryOritemImageSvg.svg";
+
   /// Assets for imagesNoInternetConnectionImageSvg
   /// assets/images/noInternetConnectionImageSvg.svg
   static const String imagesNoInternetConnectionImageSvg = "assets/images/noInternetConnectionImageSvg.svg";
+
+  /// Assets for imagesNoitemSvg
+  /// assets/images/noitemSvg.svg
+  static const String imagesNoitemSvg = "assets/images/noitemSvg.svg";
 
   /// Assets for imagesProfileIconSvg
   /// assets/images/ProfileIconSvg.svg

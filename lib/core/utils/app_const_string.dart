@@ -87,4 +87,7 @@ abstract class AppStrings {
   static const String kProfileDetails = "ProfileDetails";
   static const String kNoCategoryFound = "NoCategoryFound";
   static const String kNoAnimalFound = "NoAnimalFound";
+  static const String kStoredUserFirstName = "firstname";
+  static const String kStoredUserLastName = "lastname";
+
 }
