@@ -1,3 +1,4 @@
+import 'package:animooo/core/cubits/internet_connection_cubit/internet_connection_cubit.dart';
 import 'package:animooo/core/database/api/dio_service.dart';
 import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/entity/get_all_category_entity.dart';
@@ -49,6 +50,7 @@ Future<void> setUpGetit() async {
   getit.registerLazySingleton<CategoryRepoDecl>(() => CategoryRepoImpl());
   getit.registerLazySingleton<AnimalRepoDecl>(() => AnimalRepoImpl());
   getit.registerLazySingleton<HomeController>(() => HomeController());
+  getit.registerLazySingleton<InternetConnectionCubit>(() => InternetConnectionCubit());
 }
 
 class HomeController {

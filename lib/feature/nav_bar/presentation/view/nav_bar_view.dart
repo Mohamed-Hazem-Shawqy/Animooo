@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:animooo/core/cubits/internet_connection_cubit/internet_connection_cubit.dart';
+import 'package:animooo/core/widgets/no_internet.dart';
 import 'package:animooo/feature/add_new_animal/presentation/view/add_new_animal_view.dart';
 import 'package:animooo/feature/category/presentation/view/add_new_category_view.dart';
 import 'package:animooo/feature/home/presentation/view/home_view.dart';
@@ -5,6 +9,7 @@ import 'package:animooo/feature/nav_bar/presentation/widgets/nav_bar_view_body.d
 import 'package:animooo/feature/profile/presentation/view/profile_view.dart';
 import 'package:animooo/feature/search/presentation/view/search_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NavBarView extends StatefulWidget {
   const NavBarView({super.key});
@@ -25,16 +30,25 @@ class _NavBarViewState extends State<NavBarView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: NavBarViewBody(
-        activeIndex: _activeIndex,
-        onTap: (int value) {
-          setState(() {
-            _activeIndex = value;
-          });
-        },
-      ),
-      body: IndexedStack(index: _activeIndex, children: pages),
+    return BlocBuilder<InternetConnectionCubit, InternetConnectionState>(
+      builder: (context, state) {
+        if (state is InternetConnectionStateDisconnected) {
+          log('no internet');
+          return const NoInternet();
+        }
+        log('internet');
+        return Scaffold(
+          bottomNavigationBar: NavBarViewBody(
+            activeIndex: _activeIndex,
+            onTap: (int value) {
+              setState(() {
+                _activeIndex = value;
+              });
+            },
+          ),
+          body: IndexedStack(index: _activeIndex, children: pages),
+        );
+      },
     );
   }
 }

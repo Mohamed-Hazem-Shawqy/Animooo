@@ -15,7 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeViewBody extends StatelessWidget {
-  const HomeViewBody({super.key});
+  const HomeViewBody({super.key, required this.isLoading});
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,7 @@ class HomeViewBody extends StatelessWidget {
                           children: [
                             Expanded(
                               child: CategoriesListView(
+                                isLoading: isLoading,
                                 animals: currentAinmals,
                                 categories: currentCategory,
                                 clickOnSeeAll: context
@@ -95,7 +97,10 @@ class HomeViewBody extends StatelessWidget {
                             ),
                           ),
 
-                          AnimalsContinerSliverListView(animals: animalsToShow),
+                          AnimalsContinerSliverListView(
+                            animals: animalsToShow,
+                            isLoading: isLoading,
+                          ),
                         ],
                       );
                     },

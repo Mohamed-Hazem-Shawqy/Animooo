@@ -1,3 +1,4 @@
+import 'package:animooo/core/cubits/internet_connection_cubit/internet_connection_cubit.dart';
 import 'package:animooo/core/helper_function/new_category_and_animal_appbar.dart';
 import 'package:animooo/core/services/get_it.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
@@ -23,7 +24,12 @@ class AddNewAnimalView extends StatelessWidget {
         BlocProvider(
           create: (context) => AddNewAnimalCubit(getit<AnimalRepoDecl>()),
         ),
-        BlocProvider(create: (context) => GetAllCategoryCubit(getit<CategoryRepoDecl>())..getAllCategory()),
+        BlocProvider(
+          create: (context) => GetAllCategoryCubit(
+            getit<CategoryRepoDecl>(),
+            internetConnectionCubit: getit<InternetConnectionCubit>(),
+          )..getAllCategory(),
+        ),
       ],
       child: Scaffold(
         appBar: newCategoryAndAnimalAppBar(AppStrings.kAddNewAnimal.tr()),
