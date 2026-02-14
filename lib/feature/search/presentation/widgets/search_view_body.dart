@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/entity/get_all_category_entity.dart';
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/feature/add_new_animal/presentation/manager/get_all_animals_cubit/get_all_animals_cubit.dart';
 import 'package:animooo/feature/category/presentation/manager/get_all_category_cubit/get_all_category_cubit.dart';
+import 'package:animooo/feature/search/presentation/widgets/search_body.dart';
 import 'package:animooo/feature/search/presentation/widgets/select_aniaml_orcategory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,34 +23,56 @@ class _SearchViewBodyState extends State<SearchViewBody> {
 
   List<GetAllAnimalEntity> filteredAnimals = [];
   List<GetAllCategoryEntity> filteredCategories = [];
-
+  Timer? _debounce;
+  bool searching = false;
+  SelectionType selectedType = SelectionType.category;
   @override
   void initState() {
-    super.initState();
-
-    context.read<GetAllAnimalsCubit>().getAllAnimals();
     context.read<GetAllCategoryCubit>().getAllCategory();
+    super.initState();
   }
 
   void updateSearch(String value) {
-    final query = value.toLowerCase();
-    if (query.isEmpty) {
-      setState(() {
-        filteredAnimals.clear();
-        filteredCategories.clear();
-      });
-      return;
-    }
+    if (_debounce?.isActive == true) _debounce?.cancel();
 
     setState(() {
-      filteredAnimals = allAnimals
-          .where((a) => a.name.toLowerCase().contains(query))
-          .toList();
-
-      filteredCategories = allCategories
-          .where((c) => c.name.toLowerCase().contains(query))
-          .toList();
+      searching = true;
     });
+
+    _debounce = Timer(const Duration(seconds: 2), () {
+      if (value.toLowerCase().isEmpty) {
+        setState(() {
+          searching = false;
+          filteredAnimals.clear();
+          filteredCategories.clear();
+        });
+        return;
+      }
+
+      setState(() {
+        if (selectedType == SelectionType.category) {
+          filteredCategories = allCategories
+              .where((c) => c.name.toLowerCase().contains(value.toLowerCase()))
+              .toList();
+
+          filteredAnimals.clear();
+        } else {
+          filteredAnimals = allAnimals
+              .where((a) => a.name.toLowerCase().contains(value.toLowerCase()))
+              .toList();
+
+          filteredCategories.clear();
+        }
+
+        searching = false;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
   }
 
   @override
@@ -59,7 +84,6 @@ class _SearchViewBodyState extends State<SearchViewBody> {
             if (state is GetAllAnimalsSuccess) {
               allAnimals = state.animals;
               filteredAnimals = state.animals;
-              setState(() {});
             }
           },
         ),
@@ -68,7 +92,6 @@ class _SearchViewBodyState extends State<SearchViewBody> {
             if (state is GetAllCategorySuccess) {
               allCategories = state.categories;
               filteredCategories = state.categories;
-              setState(() {});
             }
           },
         ),
@@ -91,27 +114,34 @@ class _SearchViewBodyState extends State<SearchViewBody> {
             ),
 
             const SizedBox(height: 8),
-            const SelectAnimalorCategory(),
+            SelectAnimalorCategory(
+              isSelected: selectedType,
+              onSelected: (SelectionType type) {
+                setState(() {
+                  selectedType = type;
+                  filteredAnimals.clear();
+                  filteredCategories.clear();
+                });
+                if (type == SelectionType.animal) {
+                  context.read<GetAllAnimalsCubit>().getAllAnimals();
+                }
+              },
+            ),
             const SizedBox(height: 8),
 
-            Expanded(
-              child: ListView(
-                children: [
-                  if (filteredCategories.isNotEmpty)
-                    ...filteredCategories.map(
-                      (c) => ListTile(title: Text(c.name)),
+            searching
+                ? const Center(child: Text('loading...'))
+                : Expanded(
+                    child: SearchBody(
+                      selectedType: selectedType,
+                      filteredCategories: filteredCategories,
+                      filteredAnimals: filteredAnimals,
                     ),
-
-                  if (filteredAnimals.isNotEmpty)
-                    ...filteredAnimals.map(
-                      (a) => ListTile(title: Text(a.name)),
-                    ),
-                ],
-              ),
-            ),
+                  ),
           ],
         ),
       ),
     );
   }
 }
+
