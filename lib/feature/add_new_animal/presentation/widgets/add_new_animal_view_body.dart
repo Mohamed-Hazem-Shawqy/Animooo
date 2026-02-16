@@ -1,3 +1,5 @@
+import 'dart:developer';
+import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/entity/get_all_category_entity.dart';
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
@@ -15,7 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNewAnimalViewBody extends StatefulWidget {
-  const AddNewAnimalViewBody({super.key, });
+  const AddNewAnimalViewBody({super.key, this.updateanimal});
+  final GetAllAnimalEntity? updateanimal;
 
   @override
   State<AddNewAnimalViewBody> createState() => _AddNewAnimalViewBodyState();
@@ -31,11 +34,18 @@ class _AddNewAnimalViewBodyState extends State<AddNewAnimalViewBody> {
 
   @override
   void initState() {
-    aniamlNameController = TextEditingController();
-    descriptionController = TextEditingController();
-    animalPrice = TextEditingController();
-    categoryName = TextEditingController();
     super.initState();
+
+    aniamlNameController = TextEditingController(
+      text: widget.updateanimal?.name ?? '',
+    );
+    descriptionController = TextEditingController(
+      text: widget.updateanimal?.description ?? '',
+    );
+    animalPrice = TextEditingController(
+      text: widget.updateanimal?.price.toString() ?? '',
+    );
+    categoryName = TextEditingController(text: '');
   }
 
   @override
@@ -57,6 +67,17 @@ class _AddNewAnimalViewBodyState extends State<AddNewAnimalViewBody> {
           builder: (context, state) {
             if (state is GetAllCategorySuccess) {
               categories = state.categories;
+
+              if (widget.updateanimal != null && categoryName.text.isEmpty) {
+                try {
+                  final category = categories.firstWhere(
+                    (c) => c.id == widget.updateanimal!.categoryid,
+                  );
+                  categoryName.text = category.name;
+                } catch (e) {
+                  log('Error finding category: $e');
+                }
+              }
             }
             return Form(
               key: _formKey,
@@ -64,7 +85,6 @@ class _AddNewAnimalViewBodyState extends State<AddNewAnimalViewBody> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   NameAndPuplic(
-                    
                     text: AppStrings.kPublic.tr(),
                     style: AppFonts.urbanistSemiBold12.copyWith(
                       color: AppColors.black000000,
@@ -92,6 +112,7 @@ class _AddNewAnimalViewBodyState extends State<AddNewAnimalViewBody> {
                   SizedBox(height: AppSpacing.h16),
                   UploadImage(
                     filedName: AppStrings.kUploadImageForYourAnimal.tr(),
+                    initialImage: widget.updateanimal?.image,
                   ),
                   SizedBox(height: AppSpacing.h16),
 
@@ -120,6 +141,7 @@ class _AddNewAnimalViewBodyState extends State<AddNewAnimalViewBody> {
                     aniamlNameController: aniamlNameController,
                     descriptionController: descriptionController,
                     animalPrice: animalPrice,
+                    updateAnimal: widget.updateanimal, 
                   ),
                   SizedBox(height: AppSpacing.h16),
                 ],

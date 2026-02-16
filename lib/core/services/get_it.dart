@@ -9,6 +9,8 @@ import 'package:animooo/feature/auth/data/repo_impl/auth_repo_impl.dart';
 import 'package:animooo/feature/auth/domain/repo_decl/auth_repo_decl.dart';
 import 'package:animooo/feature/category/data/repos/category_repo_impl.dart';
 import 'package:animooo/feature/category/domain/repos/category_repo_decl.dart';
+import 'package:animooo/feature/home/data/repos/home_animal_repo_impl.dart';
+import 'package:animooo/feature/home/domain/repos/home_animal_repo_decl.dart';
 import 'package:animooo/feature/new_password/data/repos/forget_and_create_new_password_impl.dart';
 import 'package:animooo/feature/new_password/domain/repos/forget_and_create_new_password_decl.dart';
 import 'package:animooo/feature/otp/data/repos/otp_repo_impl.dart';
@@ -50,7 +52,10 @@ Future<void> setUpGetit() async {
   getit.registerLazySingleton<CategoryRepoDecl>(() => CategoryRepoImpl());
   getit.registerLazySingleton<AnimalRepoDecl>(() => AnimalRepoImpl());
   getit.registerLazySingleton<HomeController>(() => HomeController());
-  getit.registerLazySingleton<InternetConnectionCubit>(() => InternetConnectionCubit());
+  getit.registerLazySingleton<InternetConnectionCubit>(
+    () => InternetConnectionCubit(),
+  );
+  getit.registerLazySingleton<HomeAnimalRepoDecl>(() => HomeAnimalRepoImpl());
 }
 
 class HomeController {
@@ -58,17 +63,37 @@ class HomeController {
       ValueNotifier<List<GetAllCategoryEntity>>([]);
   final ValueNotifier<List<GetAllAnimalEntity>> allAnimalsNotifier =
       ValueNotifier<List<GetAllAnimalEntity>>([]);
-void updatedCategories(List<GetAllCategoryEntity> categories) {
-  allCategory.value=List.from(categories);
-}
-void addCategory(GetAllCategoryEntity newCategory) {
-  allCategory.value = [...allCategory.value, newCategory];
-}
+  void updatedCategories(List<GetAllCategoryEntity> categories) {
+    allCategory.value = List.from(categories);
+  }
+
+  void addCategory(GetAllCategoryEntity newCategory) {
+    allCategory.value = [...allCategory.value, newCategory];
+  }
+
   void updatedAnimals(List<GetAllAnimalEntity> animals) {
     allAnimalsNotifier.value = List.from(animals);
   }
 
   void addAnimal(GetAllAnimalEntity newanimal) {
     allAnimalsNotifier.value = [...allAnimalsNotifier.value, newanimal];
+  }
+
+  void removeAnimal(int animalId) {
+    allAnimalsNotifier.value = allAnimalsNotifier.value
+        .where((animal) => animal.animalid != animalId)
+        .toList();
+  }
+  void updateAnimalInList(GetAllAnimalEntity updatedAnimal) {
+
+    final index = allAnimalsNotifier.value.indexWhere(
+      (animal) => animal.animalid == updatedAnimal.animalid,
+    );
+
+    if (index != -1) {
+      List<GetAllAnimalEntity> newList = List.from(allAnimalsNotifier.value);
+      newList[index] = updatedAnimal;
+      allAnimalsNotifier.value = newList;
+    }
   }
 }

@@ -4,7 +4,10 @@ import 'package:animooo/feature/add_new_animal/domain/repos/animal_repo_decl.dar
 import 'package:animooo/feature/add_new_animal/presentation/manager/get_all_animals_cubit/get_all_animals_cubit.dart';
 import 'package:animooo/feature/category/domain/repos/category_repo_decl.dart';
 import 'package:animooo/feature/category/presentation/manager/get_all_category_cubit/get_all_category_cubit.dart';
+import 'package:animooo/feature/home/domain/repos/home_animal_repo_decl.dart';
 import 'package:animooo/feature/home/presentation/manager/checker_cubit/checker_cubit.dart';
+import 'package:animooo/feature/home/presentation/manager/cubit/update_animal_cubit.dart';
+import 'package:animooo/feature/home/presentation/manager/delete_animal_cubit/delete_animal_cubit.dart';
 import 'package:animooo/feature/home/presentation/manager/see_all_button_cubit/sell_all_button_cubit.dart';
 import 'package:animooo/feature/home/presentation/widgets/home_view_body.dart';
 import 'package:flutter/material.dart';
@@ -27,15 +30,19 @@ class HomeView extends StatelessWidget {
         BlocProvider(create: (context) => SellAllButtonCubit()),
         BlocProvider(create: (context) => CheckerCubit()),
         BlocProvider(
+          create: (context) => DeleteAnimalCubit(getit<HomeAnimalRepoDecl>()),
+        ),
+        BlocProvider(
+          create: (context) => UpdateAnimalCubit(getit<HomeAnimalRepoDecl>()),
+        ),
+        BlocProvider(
           create: (context) => GetAllAnimalsCubit(
             getit<AnimalRepoDecl>(),
             internetConnectionCubit: getit<InternetConnectionCubit>(),
           )..getAllAnimals(),
         ),
       ],
-      child:const HomeScaffoldContent()
-        
-      
+      child: const HomeScaffoldContent(),
     );
   }
 }

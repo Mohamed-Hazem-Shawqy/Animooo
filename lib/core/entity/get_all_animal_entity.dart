@@ -5,6 +5,7 @@ class GetAllAnimalEntity extends Equatable {
   final String image;
   final String description;
   final int? categoryid;
+  final int? animalid;
   final double price;
 
   const GetAllAnimalEntity({
@@ -12,8 +13,8 @@ class GetAllAnimalEntity extends Equatable {
     required this.image,
     required this.description,
      this.categoryid,
-    required this.price,
+    required this.price, this.animalid,
   });
   @override
-  List<Object?> get props => [name, image, description, categoryid, price];
+  List<Object?> get props => [name, image, description, categoryid, price,animalid];
 }

@@ -5,6 +5,7 @@ class GetAllAnimalModel {
   final String image;
   final String description;
   final int categoryid;
+  final int animalid;
   final double price;
 
   GetAllAnimalModel({
@@ -12,7 +13,7 @@ class GetAllAnimalModel {
     required this.description,
     required this.image,
     required this.categoryid,
-    required this.price,
+    required this.price, required this.animalid,
   });
 
   GetAllAnimalEntity toEntity() {
@@ -22,6 +23,7 @@ class GetAllAnimalModel {
       image: image,
       categoryid: categoryid,
       price: price,
+      animalid: animalid,
     );
   }
 
@@ -31,7 +33,7 @@ class GetAllAnimalModel {
       description: json['animal_description'],
       image: json['animal_image'],
       categoryid: json['category_id'],
-      price: json['animal_price'],
+      price: json['animal_price'], animalid: json['animal_id'],
     );
   }
 }

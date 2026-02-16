@@ -3,7 +3,9 @@ import 'package:animooo/core/services/get_it.dart';
 import 'package:animooo/core/utils/app_const_string.dart';
 import 'package:animooo/core/utils/app_padding.dart';
 import 'package:animooo/core/entity/get_all_category_entity.dart';
+import 'package:animooo/core/widgets/custom_snackbar.dart';
 import 'package:animooo/feature/home/presentation/manager/checker_cubit/checker_cubit.dart';
+import 'package:animooo/feature/home/presentation/manager/delete_animal_cubit/delete_animal_cubit.dart';
 import 'package:animooo/feature/home/presentation/manager/see_all_button_cubit/sell_all_button_cubit.dart';
 import 'package:animooo/feature/home/presentation/widgets/animals_continer_list_view.dart';
 import 'package:animooo/feature/home/presentation/widgets/categories_list_view.dart';
@@ -20,96 +22,129 @@ class HomeViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ValueListenableBuilder<List<GetAllCategoryEntity>>(
-        valueListenable: getit<HomeController>().allCategory,
-        builder: (context, currentCategory, child) {
-          return ValueListenableBuilder<List<GetAllAnimalEntity>>(
-            valueListenable: getit<HomeController>().allAnimalsNotifier,
-            builder: (context, currentAinmals, child) {
-              return CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h4)),
-                  const SliverToBoxAdapter(child: HeloInApp()),
-                  SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h24)),
+    return BlocListener<DeleteAnimalCubit, DeleteAnimalState>(
+      listener: (context, state) {
+        if (state is DeleteAnimalSuccess) {
+          getit<HomeController>().removeAnimal(state.animalId);
 
-                  SliverToBoxAdapter(
-                    child: CategoryAndAddnewCategory(
-                      length: currentCategory.length,
-                      text: AppStrings.kAddNewCategory.tr(),
-                      bigText: AppStrings.kCategories.tr(),
+          final checkerCubit = context.read<CheckerCubit>();
+          final int? categoryid;
+
+          if (checkerCubit.state is CheckerFilterd) {
+            final currentAnimals =
+                getit<HomeController>().allAnimalsNotifier.value;
+
+            if ((checkerCubit.state as CheckerFilterd)
+                .filterdAnimals
+                .isNotEmpty) {
+              final categoryId = (checkerCubit.state as CheckerFilterd)
+                  .filterdAnimals
+                  .first
+                  .categoryid;
+
+              categoryid = categoryId;
+
+              checkerCubit.filterByCategory(categoryid!, currentAnimals);
+            }
+          }
+          snackBarSuccessFunction(context, 'animal Deleted Successfully');
+        }
+        if (state is DeleteAnimalFailure) {
+          snackBarErrorFunction(context, state.errorMessage);
+        }
+      },
+      child: SafeArea(
+        child: ValueListenableBuilder<List<GetAllCategoryEntity>>(
+          valueListenable: getit<HomeController>().allCategory,
+          builder: (context, currentCategory, child) {
+            return ValueListenableBuilder<List<GetAllAnimalEntity>>(
+              valueListenable: getit<HomeController>().allAnimalsNotifier,
+              builder: (context, currentAinmals, child) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h4)),
+                    const SliverToBoxAdapter(child: HeloInApp()),
+                    SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h24)),
+
+                    SliverToBoxAdapter(
+                      child: CategoryAndAddnewCategory(
+                        length: currentCategory.length,
+                        text: AppStrings.kAddNewCategory.tr(),
+                        bigText: AppStrings.kCategories.tr(),
+                      ),
                     ),
-                  ),
-                  SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h22)),
+                    SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h22)),
 
-                  SliverToBoxAdapter(
-                    child: BlocBuilder<SellAllButtonCubit, SellAllButtonState>(
+                    SliverToBoxAdapter(
+                      child:
+                          BlocBuilder<SellAllButtonCubit, SellAllButtonState>(
+                            builder: (context, state) {
+                              return Row(
+                                children: [
+                                  Expanded(
+                                    child: CategoriesListView(
+                                      isLoading: isLoading,
+                                      animals: currentAinmals,
+                                      categories: currentCategory,
+                                      clickOnSeeAll: context
+                                          .read<SellAllButtonCubit>()
+                                          .clickOnSeeAll,
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible:
+                                        !context
+                                            .read<SellAllButtonCubit>()
+                                            .clickOnSeeAll &&
+                                        currentCategory.isNotEmpty,
+                                    child: SeeAllButton(
+                                      onPressed: context
+                                          .read<SellAllButtonCubit>()
+                                          .onSeeAllPressed,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                    ),
+                    SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h13)),
+
+                    BlocBuilder<CheckerCubit, CheckerState>(
                       builder: (context, state) {
-                        return Row(
-                          children: [
-                            Expanded(
-                              child: CategoriesListView(
-                                isLoading: isLoading,
-                                animals: currentAinmals,
-                                categories: currentCategory,
-                                clickOnSeeAll: context
-                                    .read<SellAllButtonCubit>()
-                                    .clickOnSeeAll,
+                        final animalsToShow = state is CheckerFilterd
+                            ? state.filterdAnimals
+                            : currentAinmals;
+
+                        return SliverMainAxisGroup(
+                          slivers: [
+                            SliverToBoxAdapter(
+                              child: Column(
+                                children: [
+                                  CategoryAndAddnewCategory(
+                                    length: animalsToShow.length,
+                                    text: AppStrings.kAddNewAnimal.tr(),
+                                    bigText: AppStrings.kAllAnimal.tr(),
+                                  ),
+                                  SizedBox(height: AppSpacing.h13),
+                                ],
                               ),
                             ),
-                            Visibility(
-                              visible:
-                                  !context
-                                      .read<SellAllButtonCubit>()
-                                      .clickOnSeeAll &&
-                                  currentCategory.isNotEmpty,
-                              child: SeeAllButton(
-                                onPressed: context
-                                    .read<SellAllButtonCubit>()
-                                    .onSeeAllPressed,
-                              ),
+
+                            AnimalsContinerSliverListView(
+                              animals: animalsToShow,
+                              isLoading: isLoading,
                             ),
                           ],
                         );
                       },
                     ),
-                  ),
-                  SliverToBoxAdapter(child: SizedBox(height: AppSpacing.h13)),
-
-                  BlocBuilder<CheckerCubit, CheckerState>(
-                    builder: (context, state) {
-                      final animalsToShow = state is CheckerFilterd
-                          ? state.filterdAnimals
-                          : currentAinmals;
-
-                      return SliverMainAxisGroup(
-                        slivers: [
-                          SliverToBoxAdapter(
-                            child: Column(
-                              children: [
-                                CategoryAndAddnewCategory(
-                                  length: animalsToShow.length,
-                                  text: AppStrings.kAddNewAnimal.tr(),
-                                  bigText: AppStrings.kAllAnimal.tr(),
-                                ),
-                                SizedBox(height: AppSpacing.h13),
-                              ],
-                            ),
-                          ),
-
-                          AnimalsContinerSliverListView(
-                            animals: animalsToShow,
-                            isLoading: isLoading,
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        },
+                  ],
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

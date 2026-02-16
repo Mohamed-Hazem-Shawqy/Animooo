@@ -55,11 +55,15 @@ class CategoriesListView extends StatelessWidget {
                     : Categories(category: categories[index], animals: animals),
               ),
 
-        itemCount:isLoading ? 4 : categories.isEmpty
+        itemCount: isLoading
+            ? 4
+            : categories.isEmpty
             ? 1
             : clickOnSeeAll
             ? categories.length
-            : 3,
+            : categories.length > 3
+            ? 3
+            : categories.length,
       ),
     );
   }

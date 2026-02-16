@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:animooo/core/entity/get_all_animal_entity.dart';
 import 'package:animooo/core/utils/app_colors.dart';
 import 'package:animooo/core/utils/app_fonts_style.dart';
+import 'package:animooo/core/utils/app_navigation.dart';
 import 'package:animooo/core/utils/app_padding.dart';
+import 'package:animooo/core/utils/route_manager.dart';
 import 'package:animooo/feature/auth/presentation/manager/Auth_cubit/auth_cubit.dart';
+import 'package:animooo/feature/home/presentation/manager/delete_animal_cubit/delete_animal_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +63,23 @@ class AniamlsContainer extends StatelessWidget {
                   ),
                 ),
 
-                Icon(Icons.more_vert),
+                PopupMenuButton(
+                  icon: Icon(Icons.more_vert),
+                  onSelected: (value) {
+                    if (value == 'edit') {
+                      AppNavigation.pushNamed(context, RouteName.addNewAnimal,
+                          arguments: animal);
+                    } else if (value == 'delete') {
+                      context.read<DeleteAnimalCubit>().deleteAnimal(
+                        animal.animalid ?? 00,
+                      );
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    PopupMenuItem(value: 'edit', child: Text('Edit')),
+                    PopupMenuItem(value: 'delete', child: Text('Delete')),
+                  ],
+                ),
               ],
             ),
           ),

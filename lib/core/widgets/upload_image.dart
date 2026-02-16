@@ -14,73 +14,88 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class UploadImage extends FormField<File?> {
-  UploadImage({super.key, super.validator, required String filedName})
-
-    : super(
-        builder: (FormFieldState<File?> state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FieldName(filedName: filedName),
-              SizedBox(height: AppSpacing.h8),
-              DottedBorder(
-                options: RectDottedBorderOptions(
-                  dashPattern: [4, 4],
-                  color: state.hasError
-                      ? AppColors.redFC1C1A
-                      : AppColors.primary04332D,
-                  strokeWidth: 1,
-                ),
-                child: Container(
-                  width: double.infinity,
-                  height: AppSpacing.h200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
+  UploadImage({
+    super.key,
+    super.validator,
+    required String filedName,
+    String? initialImage, // أضفنا هذا الباراميتر لاستقبال الصورة القديمة
+  }) : super(
+          builder: (FormFieldState<File?> state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FieldName(filedName: filedName),
+                SizedBox(height: AppSpacing.h8),
+                DottedBorder(
+                  options: RectDottedBorderOptions(
+                    dashPattern: [4, 4],
+                    color: state.hasError
+                        ? AppColors.redFC1C1A
+                        : AppColors.primary04332D,
+                    strokeWidth: 1,
                   ),
-                  child: GestureDetector(
-                    onTap: () async {
-                      final File? file = await ImagePickerClass.imagePicker();
-                      if (file != null) {
-                        state.didChange(file);
-                      }
-                    },
-                    child: state.value == null
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(Assets.imagesSelectimageSvg),
-                              SizedBox(height: AppSpacing.h16),
-                              Text(
-                                AppStrings.kSelectFile.tr(),
-                                style: AppFonts.urbanistMedium16.copyWith(
-                                  color: AppColors.primary04332D,
-                                ),
-                              ),
-                            ],
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(8.r),
-                            child: Image.file(
-                              state.value!,
-                              width: double.infinity,
-                              height: double.infinity,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
+                  child: Container(
+                    width: double.infinity,
+                    height: AppSpacing.h200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                    child: GestureDetector(
+                      onTap: () async {
+                        final File? file = await ImagePickerClass.imagePicker();
+                        if (file != null) {
+                          state.didChange(file);
+                        }
+                      },
+                      child: _buildImageWidget(state, initialImage),
+                    ),
                   ),
                 ),
-              ),
-              if (state.hasError) ...[
-                SizedBox(height: AppSpacing.h4),
-                Text(
-                  state.errorText!,
-                  style: AppFonts.urbanistRegular12.copyWith(
-                    color: AppColors.redFC1C1A,
+                if (state.hasError) ...[
+                  SizedBox(height: AppSpacing.h4),
+                  Text(
+                    state.errorText!,
+                    style: AppFonts.urbanistRegular12.copyWith(
+                      color: AppColors.redFC1C1A,
+                    ),
                   ),
-                ),
+                ],
               ],
-            ],
-          );
-        },
+            );
+          },
+        );
+
+ 
+  static Widget _buildImageWidget(FormFieldState<File?> state, String? initialImage) {
+   
+    if (state.value != null) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8.r),
+        child: Image.file(state.value!, width: double.infinity, height: double.infinity, fit: BoxFit.cover),
       );
+    } 
+    
+    else if (initialImage != null && initialImage.isNotEmpty) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8.r),
+        child: initialImage.startsWith('http') || initialImage.startsWith('https')
+            ? Image.network(initialImage, width: double.infinity, height: double.infinity, fit: BoxFit.cover)
+            : Image.file(File(initialImage), width: double.infinity, height: double.infinity, fit: BoxFit.cover),
+      );
+    } 
+   
+    else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(Assets.imagesSelectimageSvg),
+          SizedBox(height: AppSpacing.h16),
+          Text(
+            AppStrings.kSelectFile.tr(),
+            style: AppFonts.urbanistMedium16.copyWith(color: AppColors.primary04332D),
+          ),
+        ],
+      );
+    }
+  }
 }

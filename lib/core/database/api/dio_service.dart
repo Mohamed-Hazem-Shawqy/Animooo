@@ -20,9 +20,7 @@ class DioService implements ApiConsumer {
   }
   void _initDio() {
     _dio.options.baseUrl = EndPoints.baseUrl;
-    // _dio.options.connectTimeout = const Duration(seconds: 5);
-    // _dio.options.receiveTimeout = const Duration(seconds: 30);
-    // _dio.options.sendTimeout = const Duration(seconds: 30);
+
     //interceptors while every request and response and error
     _dio.interceptors.add(
       InterceptorsWrapper(
@@ -131,9 +129,26 @@ class DioService implements ApiConsumer {
 
   /////////////////////////////////////
   @override
-  Future<dynamic> delete({required String path}) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<dynamic> delete({
+    required String path,
+    required Map<String, dynamic>? queryParameters,
+  }) async {
+    try {
+      var response = await _dio.delete(path, queryParameters: queryParameters);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data;
+      } else {
+        throw ServerFailure(
+          'Error: ${response.statusCode} - ${response.statusMessage} - ${response.data.toString()}',
+        );
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw ServerFailure.fromDioException(e);
+      } else {
+        throw ServerFailure('Unexpected error occurred: ${e.toString()}');
+      }
+    }
   }
 
   @override

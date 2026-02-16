@@ -4,7 +4,7 @@ import 'package:animooo/core/utils/app_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-PreferredSizeWidget? appBarFunc(BuildContext context, String text) {
+PreferredSizeWidget? appBarFunc(BuildContext context, String text,{bool canPop=true}) {
   return AppBar(
     automaticallyImplyLeading: false,
 
@@ -12,9 +12,9 @@ PreferredSizeWidget? appBarFunc(BuildContext context, String text) {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () {
+          onTap: canPop ?() {
             AppNavigation.pop(context);
-          },
+          }:null,
           child: Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: Icon(

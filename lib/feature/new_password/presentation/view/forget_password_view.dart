@@ -21,14 +21,14 @@ class ForgetPasswordView extends StatelessWidget {
       create: (context) =>
           ForgetPasswordCubit(getit<ForgetAndCreateNewPasswordDecl>()),
       child: Scaffold(
-        appBar: appBarFunc(context, AppStrings.kBack.tr()),
+        appBar: appBarFunc(context, AppStrings.kBack.tr(),),
         body: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
           listener: (context, state) {
             if (state is ForgetPasswordFailure) {
               snackBarErrorFunction(context, state.message);
             } else if (state is ForgetPasswordSuccess) {
               snackBarSuccessFunction(context, state.message);
-
+      
               AppNavigation.pushNamed(
                 context,
                 RouteName.otpRoute,
