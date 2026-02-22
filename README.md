@@ -3,7 +3,7 @@
 [![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Mohamed-Hazem-Shawqy/Animooo)
 
 Animooo is a cross-platform application built with Flutter that allows users to explore, create, and manage a collection of animals and categories. It features a complete authentication system, dynamic content feeds, and management capabilities for animals and categories.
-
+![image alt](https://github.com/Mohamed-Hazem-Shawqy/Animooo/blob/9f83523c404196689fc55d5fbff1baa4d3ceb278/animoo_images.jpg)
 ## Key Features
 
 - **User Authentication**: Secure user registration, login, and session management using token-based authentication (access and refresh tokens). Includes OTP verification for sign-up and a "Forgot Password" flow.
